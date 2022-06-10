@@ -32,7 +32,10 @@ function getData(String $endpoint)
   $base_url = get_pathao_base_url();
   $access_token = get_option("pathao_access_token");
 
-  if (!$access_token) return ['error' => 'Please generate access token to use pathao plugin !!'];
+  if (!$access_token) return (object)[
+    'type' => 'failed',
+    'error' => 'Please generate access token to use pathao plugin !!'
+  ];
 
   $res = wp_remote_get($base_url . $endpoint, [
     'headers' => [
@@ -48,7 +51,7 @@ function getData(String $endpoint)
     return $data;
   }
 
-  return [
+  return (object)[
     "type" => "failed"
   ];
 }
