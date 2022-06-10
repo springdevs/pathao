@@ -2,8 +2,6 @@
 
 namespace SpringDevs\Pathao;
 
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Exception\RequestException;
 
 class Ajax
 {
@@ -15,9 +13,6 @@ class Ajax
 		add_action('wp_ajax_send_order_to_pathao', array($this, 'send_order_to_pathao'));
 	}
 
-	/**
-	 * @throws GuzzleException
-	 */
 	public function setup_pathao()
 	{
 		$client_id = sanitize_text_field($_POST['client_id']);
@@ -31,26 +26,24 @@ class Ajax
 		];
 
 		update_option('pathao_sandbox_mode', (bool)$_POST['sandbox_mode']);
-		$client = new \GuzzleHttp\Client();
 		$base_url = get_pathao_base_url();
 
-		try {
-			$res = $client->request('POST', $base_url . 'aladdin/api/v1/issue-token', [
-				'form_params' => $data
-			]);
-			$data = json_decode($res->getBody()->getContents());
+		$res = wp_remote_post($base_url . 'aladdin/api/v1/issue-token', [
+			'body' => $data,
+		]);
+		$res_code = wp_remote_retrieve_response_code($res);
+		$data = wp_remote_retrieve_body($res);
+		$data = json_decode($data);
+
+		if ($res_code == 200) {
 			update_option('pathao_client_id', $client_id);
 			update_option('pathao_client_secret', $client_secret);
 			update_option('pathao_access_token', $data->access_token);
 			update_option('pathao_refresh_token', $data->refresh_token);
 			wp_send_json_success($data);
-		} catch (RequestException $e) {
-			if ($e->hasResponse()) {
-				$res = $e->getResponse();
-				wp_send_json_error(json_decode($res->getBody()->getContents()));
-			}
 		}
 
+		wp_send_json_error($data);
 		die();
 	}
 

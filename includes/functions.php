@@ -6,8 +6,6 @@
  * @since 1.0.0
  */
 
-use GuzzleHttp\Exception\RequestException;
-
 /**
  * Get filename extension.
  *
@@ -31,25 +29,26 @@ function get_pathao_base_url(): string
 
 function getData(String $endpoint)
 {
-  $client = new \GuzzleHttp\Client();
   $base_url = get_pathao_base_url();
   $access_token = get_option("pathao_access_token");
 
   if (!$access_token) return ['error' => 'Please generate access token to use pathao plugin !!'];
 
-  try {
-    $res = $client->request('GET', $base_url . $endpoint, [
-      'headers' => [
-        'Authorization' => "Bearer {$access_token}"
-      ]
-    ]);
-    return json_decode($res->getBody()->getContents());
-  } catch (RequestException $e) {
-    if ($e->hasResponse()) {
-      $res = $e->getResponse();
-      return json_decode($res->getBody()->getContents());
-    }
-  } catch (\GuzzleHttp\Exception\GuzzleException $e) {
-    return ["error" => $e->getMessage()];
+  $res = wp_remote_get($base_url . $endpoint, [
+    'headers' => [
+      'Authorization' => 'Bearer ' . $access_token,
+      'Accept' => 'application/json',
+    ],
+  ]);
+
+  $data = json_decode(wp_remote_retrieve_body($res));
+  $res_code = wp_remote_retrieve_response_code($res);
+
+  if ($res_code == 200) {
+    return $data;
   }
+
+  return [
+    "type" => "failed"
+  ];
 }

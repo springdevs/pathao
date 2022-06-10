@@ -6,8 +6,6 @@ jQuery(document).ready(function ($) {
     $('.spinner').addClass('is-active');
     $('.notice').remove();
 
-    var notice_error = $('.notice-error');
-
     await $.ajax({
       type: 'post',
       dataType: 'json',

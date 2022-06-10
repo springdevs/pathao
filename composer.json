@@ -1,24 +1,22 @@
 {
-    "name": "springdevs/pathao",
-    "description": "Pathao integration for WooCommerce",
-    "type": "wordpress-plugin",
-    "license": "GPLv2",
-    "authors": [
-        {
-            "name": "SpringDevs",
-            "email": "contact@springdevs.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-        "guzzlehttp/guzzle": "^7.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "SpringDevs\\Pathao\\": "includes/"
-        },
-        "files": [
-            "includes/functions.php"
-        ]
-    }
+	"name": "springdevs/pathao",
+	"description": "Pathao integration for WooCommerce",
+	"type": "wordpress-plugin",
+	"license": "GPLv2",
+	"authors": [
+		{
+			"name": "SpringDevs",
+			"email": "contact@springdevs.com"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"SpringDevs\\Pathao\\": "includes/"
+		},
+		"files": [
+			"includes/functions.php"
+		]
+	}
 }
