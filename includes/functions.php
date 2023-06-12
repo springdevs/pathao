@@ -24,7 +24,7 @@ function sdevs_get_pathao_get_extension($file_name)
 
 function get_pathao_base_url(): string
 {
-  return get_option('pathao_sandbox_mode') ? "https://hermes-api.p-stageenv.xyz/" : "https://api-hermes.pathaointernal.com/";
+  return get_option('pathao_sandbox_mode') ? "https://api-hermes.pathao.com/" :  "https://hermes-api.p-stageenv.xyz/" ;
 }
 
 function getData(String $endpoint)

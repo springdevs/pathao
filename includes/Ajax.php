@@ -33,6 +33,7 @@ class Ajax
 		]);
 		$res_code = wp_remote_retrieve_response_code($res);
 		$data = wp_remote_retrieve_body($res);
+		$data = wp_remote_retrieve_body($res);
 		$data = json_decode($data);
 
 		if ($res_code == 200) {
