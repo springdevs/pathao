@@ -25,7 +25,7 @@ class Ajax
 			'grant_type' => 'password'
 		];
 
-		update_option('pathao_sandbox_mode', (bool)$_POST['sandbox_mode']);
+		update_option('pathao_sandbox_mode', $_POST['sandbox_mode'] === 'true' ? true : false);
 		$base_url = get_pathao_base_url();
 
 		$res = wp_remote_post($base_url . 'aladdin/api/v1/issue-token', [
@@ -51,7 +51,7 @@ class Ajax
 	public function get_city_zones()
 	{
 		$city = sanitize_text_field($_POST['city']);
-		$zones = getData("aladdin/api/v1/cities/$city/zone-list");
+		$zones = sdevs_get_pathao_data("aladdin/api/v1/cities/$city/zone-list");
 		$zones = $zones->type === 'success' ? $zones->data->data : array();
 
 		wp_send_json($zones);
@@ -60,7 +60,7 @@ class Ajax
 	public function get_zone_areas()
 	{
 		$zone = sanitize_text_field($_POST['zone']);
-		$areas = getData("aladdin/api/v1/zones/$zone/area-list");
+		$areas = sdevs_get_pathao_data("aladdin/api/v1/zones/$zone/area-list");
 		$areas = $areas->type === 'success' ? $areas->data->data : array();
 
 		wp_send_json($areas);

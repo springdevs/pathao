@@ -24,10 +24,10 @@ function sdevs_get_pathao_get_extension($file_name)
 
 function get_pathao_base_url(): string
 {
-  return get_option('pathao_sandbox_mode') ? "https://api-hermes.pathao.com/" :  "https://hermes-api.p-stageenv.xyz/" ;
+  return get_option('pathao_sandbox_mode') ? "https://courier-api-sandbox.pathao.com/" :  "https://api-hermes.pathao.com/";
 }
 
-function getData(String $endpoint)
+function sdevs_get_pathao_data(String $endpoint)
 {
   $base_url = get_pathao_base_url();
   $access_token = get_option("pathao_access_token");

@@ -48,9 +48,9 @@ class Order
 		wp_enqueue_script('pathao_admin_script');
 
 		$order_id = get_the_ID();
-		$stores = getData("aladdin/api/v1/stores");
+		$stores = sdevs_get_pathao_data("aladdin/api/v1/stores");
 		$stores = $stores && $stores->type === 'success' ? $stores->data->data : array();
-		$cities = getData("aladdin/api/v1/countries/1/city-list");
+		$cities = sdevs_get_pathao_data("aladdin/api/v1/countries/1/city-list");
 		$cities = $cities && $cities->type === 'success' ? $cities->data->data : array();
 
 		$order = wc_get_order($order_id);
