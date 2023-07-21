@@ -10,7 +10,6 @@
 		}
 	],
 	"minimum-stability": "dev",
-	"require": {},
 	"autoload": {
 		"psr-4": {
 			"SpringDevs\\Pathao\\": "includes/"
@@ -18,5 +17,8 @@
 		"files": [
 			"includes/functions.php"
 		]
+	},
+	"require-dev": {
+		"symfony/var-dumper": "7.0.x-dev"
 	}
 }

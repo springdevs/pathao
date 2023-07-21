@@ -72,6 +72,11 @@ class API
             $order->update_status('on-hold');
         }
 
+        if ($status == 'Delivery_Failed') {
+            $order = wc_get_order($order_id);
+            $order->update_status('failed');
+        }
+
         update_post_meta($order_id, '_pathao_order_status', $status);
         return ["success" => true];
     }

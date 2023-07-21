@@ -40,16 +40,15 @@ class Order
 
 	public function pathao_shipping_form()
 	{
+		$order_id = get_the_ID();
 		wp_localize_script('pathao_admin_script', 'pathao_admin_obj', [
-			'ajax_url' => admin_url('admin-ajax.php')
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'order_id' => $order_id,
 		]);
 		wp_enqueue_style('pathao_toast_styles');
 		wp_enqueue_script('pathao_toast_script');
 		wp_enqueue_script('pathao_admin_script');
 
-		$order_id = get_the_ID();
-		$stores = sdevs_get_pathao_data("aladdin/api/v1/stores");
-		$stores = $stores && $stores->type === 'success' ? $stores->data->data : array();
 		$cities = sdevs_get_pathao_data("aladdin/api/v1/countries/1/city-list");
 		$cities = $cities && $cities->type === 'success' ? $cities->data->data : array();
 

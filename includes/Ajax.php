@@ -7,6 +7,7 @@ class Ajax
 {
 	public function __construct()
 	{
+		new Illuminate();
 		add_action('wp_ajax_setup_pathao', array($this, 'setup_pathao'));
 		add_action('wp_ajax_get_city_zones', array($this, 'get_city_zones'));
 		add_action('wp_ajax_get_zone_areas', array($this, 'get_zone_areas'));
@@ -50,27 +51,35 @@ class Ajax
 
 	public function get_city_zones()
 	{
+		$order_id = sanitize_text_field($_POST['order_id']);
 		$city = sanitize_text_field($_POST['city']);
 		$zones = sdevs_get_pathao_data("aladdin/api/v1/cities/$city/zone-list");
 		$zones = $zones->type === 'success' ? $zones->data->data : array();
 
-		wp_send_json($zones);
+		wp_send_json([
+			'zones' => $zones,
+			'value' => apply_filters('pathao_selected_order_zone_value', null, $order_id)
+		]);
 	}
 
 	public function get_zone_areas()
 	{
+		$order_id = sanitize_text_field($_POST['order_id']);
 		$zone = sanitize_text_field($_POST['zone']);
 		$areas = sdevs_get_pathao_data("aladdin/api/v1/zones/$zone/area-list");
 		$areas = $areas->type === 'success' ? $areas->data->data : array();
 
-		wp_send_json($areas);
+		wp_send_json([
+			'areas' => $areas,
+			'value' => apply_filters('pathao_selected_order_area_value', null, $order_id)
+		]);
 	}
 
 	public function send_order_to_pathao()
 	{
 		if (wp_verify_nonce($_POST['nonce'], 'pathao_send_order')) {
 			$order_id = sanitize_text_field($_POST['order_id']);
-			$store = sanitize_text_field($_POST['store']);
+			$store = get_pathao_store_id();
 			$city = sanitize_text_field($_POST['city']);
 			$zone = sanitize_text_field($_POST['zone']);
 			$area = sanitize_text_field($_POST['area']);

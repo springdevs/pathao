@@ -8,35 +8,23 @@
 
 namespace SpringDevs\Pathao;
 
+use SpringDevs\Pathao\Admin\Settings;
+
 /**
  * The admin class
  */
-class Admin
-{
+class Admin {
 
-    /**
-     * Initialize the class.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->dispatch_actions();
-        new Admin\Menu();
-        new Admin\Order();
-        new Illuminate\Cron();
-    }
-
-    /**
-     * Dispatch and bind actions.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function dispatch_actions()
-    {
-    }
+	/**
+	 * Initialize the class.
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 *
+	 */
+	public function __construct() {
+		new Illuminate();
+		new Settings();
+		new Admin\Order();
+	}
 }

@@ -1,18 +1,7 @@
 <div class="sdevs_sidebar_form">
 	<input type="hidden" value="<?php echo wp_create_nonce('pathao_send_order'); ?>" id="pathao_send_order_nonce">
-	<input type="hidden" value="<?php echo $order_id; ?>" id="pathao_order_id">
-	<p class="form-field">
-		<label for="pathao_store"><b>Store</b></label>
-		<select style="width: 100%;" id="pathao_store" name="pathao_store">
-			<option value="">Select Store</option>
-			<?php
-			/** @var Array $stores */
-			foreach ($stores as $store) :
-			?>
-				<option value="<?php echo $store->store_id; ?>"><?php _e($store->store_name, 'sdevs_pathao'); ?></option>
-			<?php endforeach; ?>
-		</select>
-	</p>
+	<input type="hidden" value="<?php /** @var int $order_id */
+								echo $order_id; ?>" id="pathao_order_id">
 	<p class="form-field">
 		<label for="pathao_delivery_type"><b>Delivery Type</b></label>
 		<select style="width: 100%;" name="pathao_delivery_type" id="pathao_delivery_type">
@@ -32,10 +21,10 @@
 		<select style="width: 100%;" id="pathao_city" name="pathao_city">
 			<option value="">Select City</option>
 			<?php
-			/** @var Array $stores */
+			/** @var Array $cities */
 			foreach ($cities as $city) :
 			?>
-				<option value="<?php echo $city->city_id; ?>"><?php _e($city->city_name, 'sdevs_pathao'); ?></option>
+				<option value="<?php echo $city->city_id; ?>" <?php selected($city->city_id, get_post_meta(get_the_ID(), '_shipping_pathao_city_id', true)); ?>><?php _e($city->city_name, 'sdevs_pathao'); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</p>
@@ -63,5 +52,5 @@
 	</p>
 
 	<input class="button-primary" id="pathao_submit_shipping" type="button" value="Send Order" />
-	<div class="spinner" style="float:none;width:auto;height:auto;padding:10px 0 10px 50px;background-position:20px 0;position: relative;left: -25px;top: -1px;"></div>
+	<div class="spinner pathao-shipping-spinner" style="float:none;width:auto;height:auto;padding:10px 0 10px 50px;background-position:20px 0;position: relative;left: -25px;top: -1px;"></div>
 </div>
