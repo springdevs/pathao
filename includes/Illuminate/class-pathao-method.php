@@ -53,6 +53,12 @@ function sdevs_pathao_shipping_method_init()
 				foreach ($stores as $store) {
 					$dropdown_stores[$store->store_id] = $store->store_name;
 				}
+				if ($this->get_option('store') === "" && count($dropdown_stores) > 0) {
+					$this->update_option('enabled', 'yes');
+					$this->update_option('title', "Pathao");
+					$this->update_option('store', array_key_first($dropdown_stores));
+				}
+
 				$this->form_fields = array(
 					'enabled'                 => array(
 						'title'       => __('Enable', 'sdevs_pathao'),
@@ -65,15 +71,17 @@ function sdevs_pathao_shipping_method_init()
 						'title'       => __('Title', 'sdevs_pathao'),
 						'type'        => 'text',
 						'description' => __('Title to be display on site', 'sdevs_pathao'),
-						'default'     => __('Pathao', 'sdevs_pathao'),
+						'default'     => 'Pathao',
 						'disabled'    => !is_sdevs_pathao_pro_activated(),
 						'required'    => true
 					),
 					'store'                   => array(
 						'title'    => __('Store', 'sdevs_pathao'),
 						'type'     => 'select',
+						'class' => 'wc-enhanced-select',
 						'options'  => $dropdown_stores,
-						'disabled' => !is_sdevs_pathao_pro_activated()
+						'disabled' => !is_sdevs_pathao_pro_activated() || count($dropdown_stores) === 0,
+						'description' => is_sdevs_pathao_pro_activated() && count($dropdown_stores) === 0 ? __('Please generate token at first !', 'sdevs_pathao') : null
 					),
 					'replace_checkout_fields' => array(
 						'title'    => __('Replace Checkout Fields', 'sdevs_pathao'),

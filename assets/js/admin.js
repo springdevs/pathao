@@ -3,7 +3,7 @@ jQuery(document).ready(function ($) {
 		e.preventDefault();
 
 		$('#submit').prop('disabled', true);
-		$('.pathao-shipping-spinner').addClass('is-active');
+		$('.pathao-setup-spinner').addClass('is-active');
 		$('.notice').remove();
 
 		await $.ajax({
@@ -55,7 +55,7 @@ jQuery(document).ready(function ($) {
 		});
 
 		$('#submit').prop('disabled', false);
-		$('.pathao-shipping-spinner').removeClass('is-active');
+		$('.pathao-setup-spinner').removeClass('is-active');
 	});
 
 	if ($('#pathao_city').val() !== '') {
