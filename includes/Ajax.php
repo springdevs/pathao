@@ -7,7 +7,6 @@ class Ajax
 {
 	public function __construct()
 	{
-		new Illuminate();
 		add_action('wp_ajax_setup_pathao', array($this, 'setup_pathao'));
 		add_action('wp_ajax_get_city_zones', array($this, 'get_city_zones'));
 		add_action('wp_ajax_get_zone_areas', array($this, 'get_zone_areas'));
@@ -83,7 +82,7 @@ class Ajax
 			$city = sanitize_text_field($_POST['city']);
 			$zone = sanitize_text_field($_POST['zone']);
 			$area = sanitize_text_field($_POST['area']);
-			$special_instruction = sanitize_text_field($_POST['special_instruction']);
+			$special_instruction = sanitize_text_field(trim($_POST['special_instruction']));
 			$delivery_type = sanitize_text_field($_POST['delivery_type']);
 			$item_type = sanitize_text_field($_POST['item_type']);
 			$amount = sanitize_text_field($_POST['amount']);

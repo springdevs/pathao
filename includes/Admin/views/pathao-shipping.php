@@ -12,8 +12,8 @@
 	<p class="form-field">
 		<label for="pathao_item_type"><b>Item Type</b></label>
 		<select style="width: 100%;" name="pathao_item_type" id="pathao_item_type">
-			<option value="1">Document</option>
 			<option value="2">Parcel</option>
+			<option value="1">Document</option>
 		</select>
 	</p>
 	<p class="form-field">

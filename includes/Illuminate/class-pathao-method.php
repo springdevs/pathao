@@ -80,8 +80,8 @@ function sdevs_pathao_shipping_method_init()
 						'type'     => 'select',
 						'class' => 'wc-enhanced-select',
 						'options'  => $dropdown_stores,
-						'disabled' => !is_sdevs_pathao_pro_activated() || count($dropdown_stores) === 0,
-						'description' => is_sdevs_pathao_pro_activated() && count($dropdown_stores) === 0 ? __('Please generate token at first !', 'sdevs_pathao') : null
+						'disabled' => count($dropdown_stores) === 0,
+						'description' =>  count($dropdown_stores) === 0 ? __('Please generate token at first !', 'sdevs_pathao') : null
 					),
 					'replace_checkout_fields' => array(
 						'title'    => __('Replace Checkout Fields', 'sdevs_pathao'),

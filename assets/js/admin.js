@@ -56,6 +56,7 @@ jQuery(document).ready(function ($) {
 
 		$('#submit').prop('disabled', false);
 		$('.pathao-setup-spinner').removeClass('is-active');
+		window.location.reload();
 	});
 
 	if ($('#pathao_city').val() !== '') {
@@ -215,7 +216,7 @@ jQuery(document).ready(function ($) {
 			return false;
 		}
 
-		if (amount == '') {
+		if (amount === '') {
 			$.toast({
 				position: 'bottom-center',
 				text: 'Please select amount',
