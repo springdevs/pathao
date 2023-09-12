@@ -11,6 +11,29 @@ class Settings
 		add_action('woocommerce_sections_shipping', [$this, 'display_sandbox_notice']);
 		add_action('woocommerce_after_settings_shipping', [$this, 'display_setup_settings'], 20);
 		add_action('woocommerce_settings_shipping', [$this, 'pro_version_notice'], 20);
+		add_filter('woocommerce_settings_api_sanitized_fields_pathao', [$this, 'update_settings_on_free']);
+	}
+
+	public function update_settings_on_free($settings)
+	{
+		if (!is_sdevs_pathao_pro_activated()) {
+			$option = get_option('woocommerce_pathao_settings');
+			if ($option) {
+				$settings["title"] = $option["title"];
+				$settings["enabled"] = $option["enabled"];
+				$settings["replace_checkout_fields"] = $option["replace_checkout_fields"];
+				$settings["delivery_type"] = $option["delivery_type"];
+				$settings["default_weight"] = $option["default_weight"];
+			} else {
+				$settings["title"] = "Pathao";
+				$settings["enabled"] = "yes";
+				$settings["replace_checkout_fields"] = "yes";
+				$settings["delivery_type"] = 48;
+				$settings["default_weight"] = 0.5;
+			}
+		}
+
+		return $settings;
 	}
 
 	public function display_sandbox_notice()
@@ -29,7 +52,7 @@ class Settings
 	{
 		if (!is_sdevs_pathao_pro_activated() && isset($_GET['section']) && 'pathao' === $_GET['section']) :
 		?>
-			<p style="color:red;">Pathao pro version required to enable frontend shipping !</p>
+			<p style="color:red;">Pathao pro version required to work frontend shipping !</p>
 			<!--		<div style="position: absolute; inset: 0; background-color: blue;"></div>-->
 <?php
 		endif;

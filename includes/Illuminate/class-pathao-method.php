@@ -57,6 +57,9 @@ function sdevs_pathao_shipping_method_init()
 					$this->update_option('enabled', 'yes');
 					$this->update_option('title', "Pathao");
 					$this->update_option('store', array_key_first($dropdown_stores));
+					$this->update_option('replace_checkout_fields', 'yes');
+					$this->update_option('delivery_type', 48);
+					$this->update_option('default_weight', 0.5);
 				}
 
 				$this->form_fields = array(
@@ -65,14 +68,18 @@ function sdevs_pathao_shipping_method_init()
 						'type'        => 'checkbox',
 						'description' => __('Enable this shipping.', 'sdevs_pathao'),
 						'default'     => is_sdevs_pathao_pro_activated() ? 'yes' : 'no',
-						'disabled'    => !is_sdevs_pathao_pro_activated()
+						'custom_attributes' => [
+							'readonly'    => !is_sdevs_pathao_pro_activated()
+						],
 					),
 					'title'                   => array(
 						'title'       => __('Title', 'sdevs_pathao'),
 						'type'        => 'text',
 						'description' => __('Title to be display on site', 'sdevs_pathao'),
 						'default'     => 'Pathao',
-						'disabled'    => !is_sdevs_pathao_pro_activated(),
+						'custom_attributes' => [
+							'readonly'    => !is_sdevs_pathao_pro_activated(),
+						],
 						'required'    => true
 					),
 					'store'                   => array(
@@ -89,7 +96,9 @@ function sdevs_pathao_shipping_method_init()
 						'class'    => array('input-checkbox'),
 						'label'    => sprintf(__('Display %sCity, Zone, Area%s fields & Hide default %sTown / City, District, Postcode / ZIP%s fields in Checkout.', 'sdevs_pathao_pro'), '<b>', '</b>', '<b>', '</b>'),
 						'default'  => 'yes',
-						'disabled' => !is_sdevs_pathao_pro_activated()
+						'custom_attributes' => [
+							'readonly' => !is_sdevs_pathao_pro_activated()
+						],
 					),
 					'delivery_type'           => array(
 						'title'    => __('Delivery Type', 'sdevs_pathao'),
@@ -111,8 +120,11 @@ function sdevs_pathao_shipping_method_init()
 							'required'  => "required"
 						),
 						'description'       => __('This value will be replaced when you set weight on individual product ! Minimum 0.5 KG to Maximum 10 KG', 'sdevs_pathao'),
-						'default'           => __('0.5', 'sdevs_pathao'),
-						'disabled'          => !is_sdevs_pathao_pro_activated()
+						'default'           => 0.5,
+						'custom_attributes' => [
+							'readonly'          => !is_sdevs_pathao_pro_activated()
+
+						],
 					),
 				);
 			}
