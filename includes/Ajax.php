@@ -15,6 +15,10 @@ class Ajax
 
 	public function setup_pathao()
 	{
+		if (!isset($_POST['client_id']) || !isset($_POST['client_secret'])) {
+			return;
+		}
+
 		$client_id = sanitize_text_field($_POST['client_id']);
 		$client_secret = sanitize_text_field($_POST['client_secret']);
 		$data = [
@@ -50,6 +54,10 @@ class Ajax
 
 	public function get_city_zones()
 	{
+		if (!isset($_POST['order_id']) || !isset($_POST['city'])) {
+			return;
+		}
+
 		$order_id = sanitize_text_field($_POST['order_id']);
 		$city = sanitize_text_field($_POST['city']);
 		$zones = sdevs_get_pathao_data("aladdin/api/v1/cities/$city/zone-list");
@@ -63,6 +71,10 @@ class Ajax
 
 	public function get_zone_areas()
 	{
+		if (!isset($_POST['order_id']) || !isset($_POST['zone'])) {
+			return;
+		}
+
 		$order_id = sanitize_text_field($_POST['order_id']);
 		$zone = sanitize_text_field($_POST['zone']);
 		$areas = sdevs_get_pathao_data("aladdin/api/v1/zones/$zone/area-list");
@@ -76,7 +88,7 @@ class Ajax
 
 	public function send_order_to_pathao()
 	{
-		if (wp_verify_nonce($_POST['nonce'], 'pathao_send_order')) {
+		if (isset($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'pathao_send_order')) {
 			$order_id = sanitize_text_field($_POST['order_id']);
 			$store = get_pathao_store_id();
 			$city = sanitize_text_field($_POST['city']);
@@ -119,26 +131,31 @@ class Ajax
 		$recipient_phone = $order->get_shipping_phone() !== '' ? $order->get_shipping_phone() : $order->get_billing_phone();
 		$recipient_address = $order->get_formatted_shipping_address() !== '' ? $order->get_formatted_shipping_address() : $order->get_formatted_billing_address();
 
+		$body = [
+			'store_id' => $store,
+			'merchant_order_id' => $order_id,
+			'recipient_name' => $recipient_name,
+			'recipient_phone' => $recipient_phone,
+			'recipient_address' => $recipient_address,
+			'recipient_city' => $city,
+			'recipient_zone' => $zone,
+			'delivery_type' => $delivery_type,
+			'item_type' => $item_type,
+			'special_instruction' => $special_instruction,
+			'item_quantity' => $order->get_item_count(),
+			'item_weight' => $item_weight,
+			'amount_to_collect' => $amount
+		];
+
+		if ("" != $area) {
+			$body['recipient_area'] = $area;
+		}
+
 		$res = wp_remote_post($base_url . 'aladdin/api/v1/orders', [
 			'headers' => [
 				'Authorization' => 'Bearer ' . $access_token
 			],
-			'body' => [
-				'store_id' => $store,
-				'merchant_order_id' => $order_id,
-				'recipient_name' => $recipient_name,
-				'recipient_phone' => $recipient_phone,
-				'recipient_address' => $recipient_address,
-				'recipient_city' => $city,
-				'recipient_zone' => $zone,
-				'recipient_area' => $area,
-				'delivery_type' => $delivery_type,
-				'item_type' => $item_type,
-				'special_instruction' => $special_instruction,
-				'item_quantity' => $order->get_item_count(),
-				'item_weight' => $item_weight,
-				'amount_to_collect' => $amount
-			]
+			'body' => $body
 		]);
 
 		$body = wp_remote_retrieve_body($res);

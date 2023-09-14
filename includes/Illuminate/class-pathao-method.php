@@ -58,6 +58,7 @@ function sdevs_pathao_shipping_method_init()
 					$this->update_option('title', "Pathao");
 					$this->update_option('store', array_key_first($dropdown_stores));
 					$this->update_option('replace_checkout_fields', 'yes');
+					$this->update_option('area_field', 'display_required');
 					$this->update_option('delivery_type', 48);
 					$this->update_option('default_weight', 0.5);
 				}
@@ -68,18 +69,14 @@ function sdevs_pathao_shipping_method_init()
 						'type'        => 'checkbox',
 						'description' => __('Enable this shipping.', 'sdevs_pathao'),
 						'default'     => is_sdevs_pathao_pro_activated() ? 'yes' : 'no',
-						'custom_attributes' => [
-							'readonly'    => !is_sdevs_pathao_pro_activated()
-						],
+						'disabled'    => !is_sdevs_pathao_pro_activated()
 					),
 					'title'                   => array(
 						'title'       => __('Title', 'sdevs_pathao'),
 						'type'        => 'text',
 						'description' => __('Title to be display on site', 'sdevs_pathao'),
 						'default'     => 'Pathao',
-						'custom_attributes' => [
-							'readonly'    => !is_sdevs_pathao_pro_activated(),
-						],
+						'disabled'    => !is_sdevs_pathao_pro_activated(),
 						'required'    => true
 					),
 					'store'                   => array(
@@ -90,15 +87,24 @@ function sdevs_pathao_shipping_method_init()
 						'disabled' => count($dropdown_stores) === 0,
 						'description' =>  count($dropdown_stores) === 0 ? __('Please generate token at first !', 'sdevs_pathao') : null
 					),
-					'replace_checkout_fields' => array(
-						'title'    => __('Replace Checkout Fields', 'sdevs_pathao'),
-						'type'     => 'checkbox',
-						'class'    => array('input-checkbox'),
-						'label'    => sprintf(__('Display %sCity, Zone, Area%s fields & Hide default %sTown / City, District, Postcode / ZIP%s fields in Checkout.', 'sdevs_pathao_pro'), '<b>', '</b>', '<b>', '</b>'),
-						'default'  => 'yes',
-						'custom_attributes' => [
-							'readonly' => !is_sdevs_pathao_pro_activated()
+					// 'replace_checkout_fields' => array(
+					// 	'title'    => __('Replace Checkout Fields', 'sdevs_pathao'),
+					// 	'type'     => 'checkbox',
+					// 	'class'    => array('input-checkbox'),
+					// 	'label'    => sprintf(__('Display %sCity, Zone, Area%s fields & Hide default %sTown / City, District, Postcode / ZIP%s fields in Checkout.', 'sdevs_pathao_pro'), '<b>', '</b>', '<b>', '</b>'),
+					// 	'default'  => 'yes',
+					// 	'disabled' => !is_sdevs_pathao_pro_activated()
+					// ),
+					'area_field' => array(
+						'title'    => __('Area Field', 'sdevs_pathao'),
+						'type'     => 'select',
+						'options'  => [
+							'display_required' => __('Display & Required', 'sdevs_pathao'),
+							'display_no_required' => __('Display & Not Required', 'sdevs_pathao'),
+							'not_display' => __('No Display', 'sdevs_pathao'),
 						],
+						'default' => 'display_required',
+						'disabled' => !is_sdevs_pathao_pro_activated(),
 					),
 					'delivery_type'           => array(
 						'title'    => __('Delivery Type', 'sdevs_pathao'),
@@ -121,10 +127,7 @@ function sdevs_pathao_shipping_method_init()
 						),
 						'description'       => __('This value will be replaced when you set weight on individual product ! Minimum 0.5 KG to Maximum 10 KG', 'sdevs_pathao'),
 						'default'           => 0.5,
-						'custom_attributes' => [
-							'readonly'          => !is_sdevs_pathao_pro_activated()
-
-						],
+						'disabled'          => !is_sdevs_pathao_pro_activated()
 					),
 				);
 			}

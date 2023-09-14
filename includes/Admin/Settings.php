@@ -22,12 +22,14 @@ class Settings
 				$settings["title"] = $option["title"];
 				$settings["enabled"] = $option["enabled"];
 				$settings["replace_checkout_fields"] = $option["replace_checkout_fields"];
+				$settings["area_field"] = $option["area_field"];
 				$settings["delivery_type"] = $option["delivery_type"];
 				$settings["default_weight"] = $option["default_weight"];
 			} else {
 				$settings["title"] = "Pathao";
 				$settings["enabled"] = "yes";
 				$settings["replace_checkout_fields"] = "yes";
+				$settings["area_field"] = "display_required";
 				$settings["delivery_type"] = 48;
 				$settings["default_weight"] = 0.5;
 			}

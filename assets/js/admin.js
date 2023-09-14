@@ -90,7 +90,9 @@ jQuery(document).ready(function ($) {
 				order_id: pathao_admin_obj.order_id,
 			},
 			success: function (res) {
-				$('#pathao_area').html('');
+				$('#pathao_area').html(
+					'<option value="">No Area Selected</option>'
+				);
 				$.each(res.areas, function (key, value) {
 					$('#pathao_area').append(
 						'<option value="' +
@@ -180,16 +182,6 @@ jQuery(document).ready(function ($) {
 			$.toast({
 				position: 'bottom-center',
 				text: 'Please select zone',
-				icon: 'error',
-				hideAfter: 6000,
-			});
-			return false;
-		}
-
-		if (area == '') {
-			$.toast({
-				position: 'bottom-center',
-				text: 'Please select area',
 				icon: 'error',
 				hideAfter: 6000,
 			});
