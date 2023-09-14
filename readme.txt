@@ -3,7 +3,7 @@ Contributors: naminbd, ok9xnirab
 Donate link: 
 Tags: pathao, pathao-shipping
 Requires at least: 4.0
-Tested up to: 5.9
+Tested up to: 6.3
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -39,5 +39,5 @@ Pathao intregation for WooCommerce
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.1 =
 * Initial release
