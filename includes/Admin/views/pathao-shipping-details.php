@@ -8,5 +8,5 @@
 </p>
 <p>
 	<b>Status :</b><br>
-	<span><?php echo esc_html( $order_status ); ?></span>
+	<span><?php echo esc_html( str_replace("_", " ", $order_status) ); ?></span>
 </p>
