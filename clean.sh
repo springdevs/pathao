@@ -4,6 +4,7 @@ rm -r composer.lock
 
 rm -r README.md
 
+rm -rf .idea/
 rm -rf .git/
 rm -r .editorconfig
 rm -r .gitignore

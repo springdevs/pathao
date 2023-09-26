@@ -1,24 +1,32 @@
 {
-	"name": "springdevs/pathao",
-	"description": "Pathao integration for WooCommerce",
-	"type": "wordpress-plugin",
-	"license": "GPLv2",
-	"authors": [
-		{
-			"name": "SpringDevs",
-			"email": "contact@springdevs.com"
-		}
-	],
-	"minimum-stability": "dev",
-	"autoload": {
-		"psr-4": {
-			"SpringDevs\\Pathao\\": "includes/"
-		},
-		"files": [
-			"includes/functions.php"
-		]
-	},
-	"require-dev": {
-		"symfony/var-dumper": "7.0.x-dev"
-	}
+  "name": "springdevs/pathao",
+  "description": "Pathao integration for WooCommerce",
+  "type": "wordpress-plugin",
+  "license": "GPLv2",
+  "authors": [
+    {
+      "name": "SpringDevs",
+      "email": "contact@springdevs.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "SpringDevs\\Pathao\\": "includes/"
+    },
+    "files": [
+      "includes/functions.php"
+    ]
+  },
+  "require-dev": {
+    "symfony/var-dumper": "7.0.x-dev",
+    "squizlabs/php_codesniffer": "dev-master",
+    "wp-coding-standards/wpcs": "dev-develop",
+    "phpcompatibility/phpcompatibility-wp": "dev-master"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
 }

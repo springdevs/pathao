@@ -1,10 +1,9 @@
 <?php
-
 /**
  * Plugin Name: Pathao
  * Plugin URI: https://springdevs.com/plugin/pathao
  * Description: Pathao integration for WooCommerce
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: SpringDevs
  * Author URI: https://springdevs.com
  * License: GPLv2
@@ -41,9 +40,9 @@
  * **********************************************************************
  */
 
-// don't call the file directly
-if (!defined('ABSPATH')) {
-    exit;
+// don't call the file directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -53,249 +52,236 @@ require_once __DIR__ . '/vendor/autoload.php';
  *
  * @class Sdevs_pathao The class that holds the entire Sdevs_pathao plugin
  */
-final class Sdevs_pathao
-{
-    /**
-     * Plugin version
-     *
-     * @var string
-     *
-     * @since 1.0.0
-     */
-    const VERSION = '1.0.1';
+final class Sdevs_pathao {
 
-    /**
-     * Holds various class instances.
-     *
-     * @var array
-     *
-     * @since 1.0.0
-     */
-    private $container = [];
+	/**
+	 * Plugin version
+	 *
+	 * @var string
+	 *
+	 * @since 1.0.0
+	 */
+	const VERSION = '1.0.2';
 
-    /**
-     * Constructor for the Sdevs_pathao class.
-     *
-     * Sets up all the appropriate hooks and actions
-     * within our plugin.
-     *
-     * @since 1.0.0
-     */
-    private function __construct()
-    {
-        $this->define_constants();
+	/**
+	 * Holds various class instances.
+	 *
+	 * @var array
+	 *
+	 * @since 1.0.0
+	 */
+	private $container = array();
 
-        register_activation_hook(__FILE__, [$this, 'activate']);
-        register_deactivation_hook(__FILE__, [$this, 'deactivate']);
+	/**
+	 * Constructor for the Sdevs_pathao class.
+	 *
+	 * Sets up all the appropriate hooks and actions
+	 * within our plugin.
+	 *
+	 * @since 1.0.0
+	 */
+	private function __construct() {
+		$this->define_constants();
 
-        add_action('plugins_loaded', [$this, 'init_plugin']);
-    }
+		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 
-    /**
-     * Initializes the Sdevs_pathao() class.
-     *
-     * Checks for an existing Sdevs_pathao() instance
-     * and if it doesn't find one, creates it.
-     *
-     * @since 1.0.0
-     *
-     * @return Sdevs_pathao|bool
-     */
-    public static function init()
-    {
-        static $instance = false;
+		add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
+	}
 
-        if (!$instance) {
-            $instance = new Sdevs_pathao();
-        }
+	/**
+	 * Initializes the Sdevs_pathao() class.
+	 *
+	 * Checks for an existing Sdevs_pathao() instance
+	 * and if it doesn't find one, creates it.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Sdevs_pathao|bool
+	 */
+	public static function init() {
+		static $instance = false;
 
-        return $instance;
-    }
+		if ( ! $instance ) {
+			$instance = new Sdevs_pathao();
+		}
 
-    /**
-     * Magic getter to bypass referencing plugin.
-     *
-     * @param $prop
-     *
-     * @since 1.0.0
-     *
-     * @return mixed
-     */
-    public function __get($prop)
-    {
-        if (array_key_exists($prop, $this->container)) {
-            return $this->container[$prop];
-        }
+		return $instance;
+	}
 
-        return $this->{$prop};
-    }
+	/**
+	 * Magic getter to bypass referencing plugin.
+	 *
+	 * @param $prop
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return mixed
+	 */
+	public function __get( $prop ) {
+		if ( array_key_exists( $prop, $this->container ) ) {
+			return $this->container[ $prop ];
+		}
 
-    /**
-     * Magic isset to bypass referencing plugin.
-     *
-     * @param $prop
-     *
-     * @since 1.0.0
-     *
-     * @return mixed
-     */
-    public function __isset($prop)
-    {
-        return isset($this->{$prop}) || isset($this->container[$prop]);
-    }
+		return $this->{$prop};
+	}
 
-    /**
-     * Define the constants.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function define_constants()
-    {
-        define('SDEVS_PATHAO_VERSION', self::VERSION);
-        define('SDEVS_PATHAO_FILE', __FILE__);
-        define('SDEVS_PATHAO_PATH', dirname(SDEVS_PATHAO_FILE));
-        define('SDEVS_PATHAO_INCLUDES', SDEVS_PATHAO_PATH . '/includes');
-        define('SDEVS_PATHAO_URL', plugins_url('', SDEVS_PATHAO_FILE));
-        define('SDEVS_PATHAO_ASSETS', SDEVS_PATHAO_URL . '/assets');
-    }
+	/**
+	 * Magic isset to bypass referencing plugin.
+	 *
+	 * @param $prop
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return mixed
+	 */
+	public function __isset( $prop ) {
+		return isset( $this->{$prop} ) || isset( $this->container[ $prop ] );
+	}
 
-    /**
-     * Load the plugin after all plugins are loaded.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function init_plugin()
-    {
-        $this->includes();
-        $this->init_hooks();
-    }
+	/**
+	 * Define the constants.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function define_constants() {
+		define( 'SDEVS_PATHAO_VERSION', self::VERSION );
+		define( 'SDEVS_PATHAO_FILE', __FILE__ );
+		define( 'SDEVS_PATHAO_PATH', dirname( SDEVS_PATHAO_FILE ) );
+		define( 'SDEVS_PATHAO_INCLUDES', SDEVS_PATHAO_PATH . '/includes' );
+		define( 'SDEVS_PATHAO_URL', plugins_url( '', SDEVS_PATHAO_FILE ) );
+		define( 'SDEVS_PATHAO_ASSETS', SDEVS_PATHAO_URL . '/assets' );
+	}
 
-    /**
-     * Placeholder for activation function.
-     *
-     * Nothing being called here yet.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function activate()
-    {
-        $installer = new SpringDevs\Pathao\Installer();
-        $installer->run();
-    }
+	/**
+	 * Load the plugin after all plugins are loaded.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function init_plugin() {
+		$this->includes();
+		$this->init_hooks();
+	}
 
-    /**
-     * Placeholder for deactivation function.
-     *
-     * Nothing being called here yet.
-     *
-     * @since 1.0.0
-     */
-    public function deactivate()
-    {
-    }
+	/**
+	 * Placeholder for activation function.
+	 *
+	 * Nothing being called here yet.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function activate() {
+		$installer = new SpringDevs\Pathao\Installer();
+		$installer->run();
+	}
 
-    /**
-     * Include the required files.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function includes()
-    {
-        if ($this->is_request('admin')) {
-            $this->container['admin'] = new SpringDevs\Pathao\Admin();
-        }
+	/**
+	 * Placeholder for deactivation function.
+	 *
+	 * Nothing being called here yet.
+	 *
+	 * @since 1.0.0
+	 */
+	public function deactivate() {
+	}
 
-        if ($this->is_request('frontend')) {
-            $this->container['frontend'] = new SpringDevs\Pathao\Frontend();
-        }
+	/**
+	 * Include the required files.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function includes() {
+		if ( $this->is_request( 'admin' ) ) {
+			$this->container['admin'] = new SpringDevs\Pathao\Admin();
+		}
 
-        if ($this->is_request('ajax')) {
-            // require_once SDEVS_PATHAO_INCLUDES . '/class-ajax.php';
-        }
-    }
+		if ( $this->is_request( 'frontend' ) ) {
+			$this->container['frontend'] = new SpringDevs\Pathao\Frontend();
+		}
 
-    /**
-     * Initialize the hooks.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function init_hooks()
-    {
-        add_action('init', [$this, 'init_classes']);
+		if ( $this->is_request( 'ajax' ) ) {
+			// require_once SDEVS_PATHAO_INCLUDES . '/class-ajax.php';
+		}
+	}
 
-        // Localize our plugin
-        add_action('init', [$this, 'localization_setup']);
-    }
+	/**
+	 * Initialize the hooks.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function init_hooks() {
+		add_action( 'init', array( $this, 'init_classes' ) );
 
-    /**
-     * Instantiate the required classes.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function init_classes()
-    {
-        if ($this->is_request('ajax')) {
-            $this->container['ajax'] =  new SpringDevs\Pathao\Ajax();
-        }
+		// Localize our plugin.
+		add_action( 'init', array( $this, 'localization_setup' ) );
+	}
 
-        $this->container['api']    = new SpringDevs\Pathao\Api();
-        $this->container['assets'] = new SpringDevs\Pathao\Assets();
-    }
+	/**
+	 * Instantiate the required classes.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function init_classes() {
+		if ( $this->is_request( 'ajax' ) ) {
+			$this->container['ajax'] = new SpringDevs\Pathao\Ajax();
+		}
 
-    /**
-     * Initialize plugin for localization.
-     *
-     * @uses load_plugin_textdomain()
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function localization_setup()
-    {
-        load_plugin_textdomain('sdevs_pathao', false, dirname(plugin_basename(__FILE__)) . '/languages/');
-    }
+		$this->container['api']    = new SpringDevs\Pathao\Api();
+		$this->container['assets'] = new SpringDevs\Pathao\Assets();
+	}
 
-    /**
-     * What type of request is this?
-     *
-     * @param string $type admin, ajax, cron or frontend.
-     *
-     * @since 1.0.0
-     *
-     * @return bool
-     */
-    private function is_request($type)
-    {
-        switch ($type) {
-            case 'admin':
-                return is_admin();
+	/**
+	 * Initialize plugin for localization.
+	 *
+	 * @uses load_plugin_textdomain()
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function localization_setup() {
+		load_plugin_textdomain( 'sdevs_pathao', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
 
-            case 'ajax':
-                return defined('DOING_AJAX');
+	/**
+	 * What type of request is this?
+	 *
+	 * @param string $type admin, ajax, cron or frontend.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	private function is_request( $type ) {
+		switch ( $type ) {
+			case 'admin':
+				return is_admin();
 
-            case 'rest':
-                return defined('REST_REQUEST');
+			case 'ajax':
+				return defined( 'DOING_AJAX' );
 
-            case 'cron':
-                return defined('DOING_CRON');
+			case 'rest':
+				return defined( 'REST_REQUEST' );
 
-            case 'frontend':
-                return (!is_admin() || defined('DOING_AJAX')) && !defined('DOING_CRON');
-        }
-    }
+			case 'cron':
+				return defined( 'DOING_CRON' );
+
+			case 'frontend':
+				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+		}
+	}
 } // Sdevs_pathao
 
 /**
@@ -305,9 +291,8 @@ final class Sdevs_pathao
  *
  * @return \Sdevs_pathao|bool
  */
-function sdevs_pathao()
-{
-    return Sdevs_pathao::init();
+function sdevs_pathao() {
+	return Sdevs_pathao::init();
 }
 
 /**

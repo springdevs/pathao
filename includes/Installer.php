@@ -1,67 +1,85 @@
 <?php
 
-/**
- * The Installer class.
- * Install all dependency from here while activating the plugin.
- *
- * @package SpringDevs\Pathao\Installer
- */
-
 namespace SpringDevs\Pathao;
 
 /**
  * Class Installer
+ *
  * @package SpringDevs\Pathao
  */
-class Installer
-{
+class Installer {
 
-    /**
-     * Run the installer.
-     * 
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function run()
-    {
-        $this->add_version();
-        $this->create_tables();
-    }
 
-    /**
-     * Add time and version on DB.
-     * 
-     * @since 1.0.0
-     * 
-     * @return void
-     */
-    public function add_version()
-    {
-        $installed = get_option('pathao_installed');
+	/**
+	 * Run the installer.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function run() {
+		$this->add_version();
+		$this->create_tables();
+	}
 
-        if (!$installed) {
-            update_option('pathao_installed', time());
-        }
+	/**
+	 * Add time and version on DB.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function add_version() {
+		$installed = get_option( 'pathao_installed' );
 
-        update_option('pathao_version', SDEVS_PATHAO_VERSION);
+		if ( ! $installed ) {
+			update_option( 'pathao_installed', time() );
+		}
 
-        if (!wp_next_scheduled('pathao_refresh_token_cron')) {
-            wp_schedule_event(time(), 'twicedaily', 'pathao_refresh_token_cron');
-        }
-    }
+		update_option( 'pathao_version', SDEVS_PATHAO_VERSION );
 
-    /**
-     * Create necessary database tables.
-     * 
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function create_tables()
-    {
-        if (!function_exists('dbDelta')) {
-            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        }
-    }
+		if ( ! wp_next_scheduled( 'pathao_refresh_token_cron' ) ) {
+			wp_schedule_event( time(), 'twicedaily', 'pathao_refresh_token_cron' );
+		}
+	}
+
+	/**
+	 * Create necessary database tables.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function create_tables() {
+		if ( ! function_exists( 'dbDelta' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		}
+
+		$this->create_logs_table();
+	}
+
+	/**
+	 * Create logs table
+	 *
+	 * @return void
+	 */
+	public function create_logs_table() {
+		global $wpdb;
+
+		$charset_collate = $wpdb->get_charset_collate();
+		$table_name      = $wpdb->prefix . 'pathao_logs';
+
+		$schema = "CREATE TABLE IF NOT EXISTS `{$table_name}` (
+                      `id` INT(255) NOT NULL AUTO_INCREMENT,
+                      `order_id` INT(100) NOT NULL,
+                      `consignment_id` VARCHAR(100) NOT NULL,
+                      `order_status` VARCHAR(100) NOT NULL,
+                      `order_status_slug` VARCHAR(100) NOT NULL,
+                      `reason` VARCHAR(200) NULL,
+                      `updated_at` TIMESTAMP NOT NULL,
+                      PRIMARY KEY (`id`)
+                    ) $charset_collate";
+
+		dbDelta( $schema );
+	}
 }
