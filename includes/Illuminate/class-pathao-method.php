@@ -73,6 +73,7 @@ function sdevs_pathao_shipping_method_init() {
 					$this->update_option( 'area_field', 'display_required' );
 					$this->update_option( 'delivery_type', 48 );
 					$this->update_option( 'default_weight', 0.5 );
+					$this->update_option( 'at_the_sorting_hub_status', 'wc-in-shipment' );
 					$this->update_option( 'pickup_failed_status', 'wc-processing' );
 					$this->update_option( 'delivered_status', 'wc-completed' );
 					$this->update_option( 'return_status', 'wc-processing' );
@@ -80,14 +81,14 @@ function sdevs_pathao_shipping_method_init() {
 				}
 
 				$this->form_fields = array(
-					'enabled'              => array(
+					'enabled'                   => array(
 						'title'       => __( 'Enable', 'sdevs_pathao' ),
 						'type'        => 'checkbox',
 						'description' => __( 'Enable this shipping.', 'sdevs_pathao' ),
 						'default'     => is_sdevs_pathao_pro_activated() ? 'yes' : 'no',
 						'disabled'    => ! is_sdevs_pathao_pro_activated(),
 					),
-					'title'                => array(
+					'title'                     => array(
 						'title'       => __( 'Title', 'sdevs_pathao' ),
 						'type'        => 'text',
 						'description' => __( 'Title to be display on site', 'sdevs_pathao' ),
@@ -95,7 +96,7 @@ function sdevs_pathao_shipping_method_init() {
 						'disabled'    => ! is_sdevs_pathao_pro_activated(),
 						'required'    => true,
 					),
-					'store'                => array(
+					'store'                     => array(
 						'title'       => __( 'Store', 'sdevs_pathao' ),
 						'type'        => 'select',
 						'class'       => 'wc-enhanced-select',
@@ -103,15 +104,7 @@ function sdevs_pathao_shipping_method_init() {
 						'disabled'    => count( $dropdown_stores ) === 0,
 						'description' => count( $dropdown_stores ) === 0 ? __( 'Please generate token at first !', 'sdevs_pathao' ) : null,
 					),
-					// 'replace_checkout_fields' => array(
-					// 'title'    => __('Replace Checkout Fields', 'sdevs_pathao'),
-					// 'type'     => 'checkbox',
-					// 'class'    => array('input-checkbox'),
-					// 'label'    => sprintf(__('Display %sCity, Zone, Area%s fields & Hide default %sTown / City, District, Postcode / ZIP%s fields in Checkout.', 'sdevs_pathao_pro'), '<b>', '</b>', '<b>', '</b>'),
-					// 'default'  => 'yes',
-					// 'disabled' => !is_sdevs_pathao_pro_activated()
-					// ),
-					'area_field'           => array(
+					'area_field'                => array(
 						'title'    => __( 'Area Field', 'sdevs_pathao' ),
 						'type'     => 'select',
 						'options'  => array(
@@ -122,7 +115,7 @@ function sdevs_pathao_shipping_method_init() {
 						'default'  => 'display_required',
 						'disabled' => ! is_sdevs_pathao_pro_activated(),
 					),
-					'delivery_type'        => array(
+					'delivery_type'             => array(
 						'title'    => __( 'Delivery Type', 'sdevs_pathao' ),
 						'type'     => 'select',
 						'options'  => array(
@@ -132,7 +125,7 @@ function sdevs_pathao_shipping_method_init() {
 						'default'  => 48,
 						'disabled' => ! is_sdevs_pathao_pro_activated(),
 					),
-					'default_weight'       => array(
+					'default_weight'            => array(
 						'title'             => __( 'Default Item Weight (KG)', 'sdevs_pathao' ),
 						'type'              => 'number',
 						'custom_attributes' => array(
@@ -145,7 +138,15 @@ function sdevs_pathao_shipping_method_init() {
 						'default'           => 0.5,
 						'disabled'          => ! is_sdevs_pathao_pro_activated(),
 					),
-					'pickup_failed_status' => array(
+					'at_the_sorting_hub_status' => array(
+						'title'       => __( 'Order Status For At the Sorting HUB', 'sdevs_pathao' ),
+						'type'        => 'select',
+						'options'     => $order_statuses,
+						'description' => __( 'When Pathao order status is At the Sorting HUB, WooCommerce Order status will be set this status !', 'sdevs_pathao' ),
+						'default'     => 'wc-in-shipment',
+						'disabled'    => ! is_sdevs_pathao_pro_activated(),
+					),
+					'pickup_failed_status'      => array(
 						'title'       => __( 'Order Status For Pickup Failed', 'sdevs_pathao' ),
 						'type'        => 'select',
 						'options'     => $order_statuses,
@@ -153,7 +154,7 @@ function sdevs_pathao_shipping_method_init() {
 						'default'     => 'wc-processing',
 						'disabled'    => ! is_sdevs_pathao_pro_activated(),
 					),
-					'delivered_status'     => array(
+					'delivered_status'          => array(
 						'title'       => __( 'Order Status For Delivered', 'sdevs_pathao' ),
 						'type'        => 'select',
 						'options'     => $order_statuses,
@@ -161,7 +162,7 @@ function sdevs_pathao_shipping_method_init() {
 						'default'     => 'wc-completed',
 						'disabled'    => ! is_sdevs_pathao_pro_activated(),
 					),
-					'return_status'        => array(
+					'return_status'             => array(
 						'title'       => __( 'Order Status For Return', 'sdevs_pathao' ),
 						'type'        => 'select',
 						'options'     => $order_statuses,
@@ -169,7 +170,7 @@ function sdevs_pathao_shipping_method_init() {
 						'default'     => 'wc-processing',
 						'disabled'    => ! is_sdevs_pathao_pro_activated(),
 					),
-					'on_hold_status'       => array(
+					'on_hold_status'            => array(
 						'title'       => __( 'Order Status For On_Hold', 'sdevs_pathao' ),
 						'type'        => 'select',
 						'options'     => $order_statuses,
