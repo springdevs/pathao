@@ -4,6 +4,9 @@ namespace SpringDevs\Pathao;
 
 use stdClass;
 
+/**
+ * The Ajax class.
+ */
 class Ajax {
 
 	/**
@@ -19,23 +22,28 @@ class Ajax {
 		add_action( 'wp_ajax_send_order_to_pathao', array( $this, 'send_order_to_pathao' ) );
 	}
 
+	/**
+	 * Generate token & save it.
+	 *
+	 * @return void
+	 */
 	public function setup_pathao() {
-		if ( ! isset( $_POST['client_id'] ) || ! isset( $_POST['client_secret'] ) ) {
+		if ( ! isset( $_POST['client_id'], $_POST['client_secret'], $_POST['client_username'], $_POST['_wpnonce'], $_POST['client_password'], $_POST['sandbox_mode'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), '_pathao_setup_nonce' ) || ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
-		$client_id     = sanitize_text_field( $_POST['client_id'] );
-		$client_secret = sanitize_text_field( $_POST['client_secret'] );
+		$client_id     = sanitize_text_field( wp_unslash( $_POST['client_id'] ) );
+		$client_secret = sanitize_text_field( wp_unslash( $_POST['client_secret'] ) );
 		$data          = array(
 			'client_id'     => $client_id,
 			'client_secret' => $client_secret,
-			'username'      => sanitize_email( $_POST['client_username'] ),
-			'password'      => sanitize_text_field( $_POST['client_password'] ),
+			'username'      => sanitize_email( wp_unslash( $_POST['client_username'] ) ),
+			'password'      => sanitize_text_field( wp_unslash( $_POST['client_password'] ) ),
 			'grant_type'    => 'password',
 		);
 
-		update_option( 'pathao_sandbox_mode', $_POST['sandbox_mode'] === 'true' ? true : false );
-		$base_url = get_pathao_base_url();
+		update_option( 'pathao_sandbox_mode', 'true' === $_POST['sandbox_mode'] ? true : false );
+		$base_url = sdevs_pathao_base_url();
 
 		$res      = wp_remote_post(
 			$base_url . 'aladdin/api/v1/issue-token',
@@ -48,7 +56,7 @@ class Ajax {
 		$data     = wp_remote_retrieve_body( $res );
 		$data     = json_decode( $data );
 
-		if ( $res_code == 200 ) {
+		if ( 200 === $res_code ) {
 			update_option( 'pathao_client_id', $client_id );
 			update_option( 'pathao_client_secret', $client_secret );
 			update_option( 'pathao_access_token', $data->access_token );
@@ -60,15 +68,20 @@ class Ajax {
 		die();
 	}
 
+	/**
+	 * Get zones from pathao server.
+	 *
+	 * @return array
+	 */
 	public function get_city_zones() {
-		if ( ! isset( $_POST['order_id'] ) || ! isset( $_POST['city'] ) ) {
+		if ( ! isset( $_POST['nonce'], $_POST['order_id'], $_POST['city'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'pathao_send_order' ) ) {
 			return;
 		}
 
-		$order_id = sanitize_text_field( $_POST['order_id'] );
-		$city     = sanitize_text_field( $_POST['city'] );
+		$order_id = sanitize_text_field( wp_unslash( $_POST['order_id'] ) );
+		$city     = sanitize_text_field( wp_unslash( $_POST['city'] ) );
 		$zones    = sdevs_get_pathao_data( "aladdin/api/v1/cities/$city/zone-list" );
-		$zones    = $zones->type === 'success' ? $zones->data->data : array();
+		$zones    = 'success' === $zones->type ? $zones->data->data : array();
 
 		wp_send_json(
 			array(
@@ -78,13 +91,18 @@ class Ajax {
 		);
 	}
 
+	/**
+	 * Get areas from pathao server.
+	 *
+	 * @return array
+	 */
 	public function get_zone_areas() {
-		if ( ! isset( $_POST['order_id'] ) || ! isset( $_POST['zone'] ) ) {
+		if ( ! isset( $_POST['nonce'], $_POST['order_id'], $_POST['zone'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'pathao_send_order' ) ) {
 			return;
 		}
 
-		$order_id = sanitize_text_field( $_POST['order_id'] );
-		$zone     = sanitize_text_field( $_POST['zone'] );
+		$order_id = sanitize_text_field( wp_unslash( $_POST['order_id'] ) );
+		$zone     = sanitize_text_field( wp_unslash( $_POST['zone'] ) );
 		$areas    = sdevs_get_pathao_data( "aladdin/api/v1/zones/$zone/area-list" );
 		$areas    = 'success' === $areas->type ? $areas->data->data : array();
 
@@ -102,7 +120,7 @@ class Ajax {
 	public function send_order_to_pathao() {
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'pathao_send_order' ) && isset( $_POST['order_id'] ) && isset( $_POST['city'] ) && isset( $_POST['zone'] ) && isset( $_POST['area'] ) && isset( $_POST['special_instruction'] ) && isset( $_POST['delivery_type'] ) && isset( $_POST['item_type'] ) && isset( $_POST['amount'] ) && isset( $_POST['item_weight'] ) ) {
 			$order_id            = sanitize_text_field( wp_unslash( $_POST['order_id'] ) );
-			$store               = get_pathao_store_id();
+			$store               = sdevs_pathao_store_id();
 			$city                = sanitize_text_field( wp_unslash( $_POST['city'] ) );
 			$zone                = sanitize_text_field( wp_unslash( $_POST['zone'] ) );
 			$area                = sanitize_text_field( wp_unslash( $_POST['area'] ) );
@@ -115,7 +133,7 @@ class Ajax {
 			$res = $this->send_order( $order_id, $store, $city, $zone, $area, $special_instruction, $delivery_type, $item_type, $amount, $item_weight );
 
 			if ( 'error' === $res->type ) {
-				 wp_send_json(
+				wp_send_json(
 					array(
 						'success' => false,
 						'message' => $res->message,
@@ -164,11 +182,11 @@ class Ajax {
 	 * @return mixed
 	 */
 	public function send_order( $order_id, $store, $city, $zone, $area, $special_instruction, $delivery_type, $item_type, $amount, $item_weight ) {
-		$base_url     = get_pathao_base_url();
+		$base_url     = sdevs_pathao_base_url();
 		$access_token = get_option( 'pathao_access_token' );
 
 		if ( ! $access_token ) {
-			 wp_send_json(
+			wp_send_json(
 				array(
 					'success' => false,
 					'message' => 'Please generate access token to use pathao plugin !!',

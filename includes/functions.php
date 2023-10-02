@@ -20,12 +20,12 @@ function sdevs_get_pathao_get_extension( $file_name ) {
 	return ( false === $n ) ? '' : substr( $file_name, $n + 1 );
 }
 
-function get_pathao_base_url(): string {
+function sdevs_pathao_base_url(): string {
 	return get_option( 'pathao_sandbox_mode' ) ? 'https://courier-api-sandbox.pathao.com/' : 'https://api-hermes.pathao.com/';
 }
 
 function sdevs_get_pathao_data( string $endpoint ) {
-	$base_url     = get_pathao_base_url();
+	$base_url     = sdevs_pathao_base_url();
 	$access_token = get_option( 'pathao_access_token' );
 
 	if ( ! $access_token ) {
@@ -60,7 +60,7 @@ function sdevs_get_pathao_data( string $endpoint ) {
 }
 
 function sdevs_send_pathao_data( string $endpoint, array $body ) {
-	$base_url     = get_pathao_base_url();
+	$base_url     = sdevs_pathao_base_url();
 	$access_token = get_option( 'pathao_access_token' );
 
 	if ( ! $access_token ) {
@@ -115,7 +115,7 @@ function is_pathao_shipping_enabled(): bool {
 	return $settings && isset( $settings['enabled'] ) && 'yes' === $settings['enabled'];
 }
 
-function get_pathao_store_id() {
+function sdevs_pathao_store_id() {
 	$settings = get_option( 'woocommerce_pathao_settings' );
 
 	if ( $settings && isset( $settings['store'] ) ) {
@@ -125,7 +125,7 @@ function get_pathao_store_id() {
 	return false;
 }
 
-function get_pathao_settings( $key ) {
+function sdevs_pathao_settings( $key ) {
 	$settings = get_option( 'woocommerce_pathao_settings' );
 
 	return $settings[ $key ];

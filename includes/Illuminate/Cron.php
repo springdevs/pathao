@@ -26,7 +26,7 @@ class Cron {
 			return;
 		}
 
-		$base_url = get_pathao_base_url();
+		$base_url = sdevs_pathao_base_url();
 		$data     = array(
 			'client_id'     => $client_id,
 			'client_secret' => $client_secret,

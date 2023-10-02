@@ -3,7 +3,7 @@
  * Plugin Name: Pathao
  * Plugin URI: https://springdevs.com/plugin/pathao
  * Description: Pathao integration for WooCommerce
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: SpringDevs
  * Author URI: https://springdevs.com
  * License: GPLv2
@@ -61,7 +61,7 @@ final class Sdevs_pathao {
 	 *
 	 * @since 1.0.0
 	 */
-	const VERSION = '1.0.2';
+	const VERSION = '1.0.3';
 
 	/**
 	 * Holds various class instances.
@@ -150,7 +150,7 @@ final class Sdevs_pathao {
 		define( 'SDEVS_PATHAO_VERSION', self::VERSION );
 		define( 'SDEVS_PATHAO_FILE', __FILE__ );
 		define( 'SDEVS_PATHAO_PATH', dirname( SDEVS_PATHAO_FILE ) );
-		define( 'SDEVS_PATHAO_INCLUDES', SDEVS_PATHAO_PATH . '/includes' );
+		define( 'SDEVS_PATHAO_INCLUDES', __DIR__ . '/includes' );
 		define( 'SDEVS_PATHAO_URL', plugins_url( '', SDEVS_PATHAO_FILE ) );
 		define( 'SDEVS_PATHAO_ASSETS', SDEVS_PATHAO_URL . '/assets' );
 	}

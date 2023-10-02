@@ -1,6 +1,9 @@
+<?php if ( ! defined( 'ABSPATH' ) ) {
+	exit;} ?>
+
 <div class="sdevs_sidebar_form">
-	<input type="hidden" value="<?php echo wp_create_nonce( 'pathao_send_order' ); ?>" id="pathao_send_order_nonce">
-	<input type="hidden" value="<?php /** @var int $order_id */ echo $order_id; ?>" id="pathao_order_id">
+	<?php wp_nonce_field( 'pathao_send_order', 'pathao_send_order_nonce' ); ?>
+	<input type="hidden" value="<?php echo esc_html( $order_id ); ?>" id="pathao_order_id">
 	<p class="form-field">
 		<label for="pathao_delivery_type"><b>Delivery Type</b></label>
 		<select style="width: 100%;" name="pathao_delivery_type" id="pathao_delivery_type">
@@ -20,10 +23,9 @@
 		<select style="width: 100%;" id="pathao_city" name="pathao_city">
 			<option value="">Select City</option>
 			<?php
-			/** @var Array $cities */
 			foreach ( $cities as $city ) :
 				?>
-				<option value="<?php echo $city->city_id; ?>" <?php selected( $city->city_id, get_post_meta( get_the_ID(), '_shipping_pathao_city_id', true ) ); ?>><?php _e( $city->city_name, 'sdevs_pathao' ); ?></option>
+				<option value="<?php echo esc_attr( $city->city_id ); ?>" <?php selected( $city->city_id, get_post_meta( get_the_ID(), '_shipping_pathao_city_id', true ) ); ?>><?php echo esc_html( $city->city_name ); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</p>

@@ -1,13 +1,16 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * Pathao shipping init.
  */
 function sdevs_pathao_shipping_method_init() {
-	if ( ! class_exists( 'WC_Pathao_Method' ) ) {
+	if ( ! class_exists( 'SDEVS_Pathao_Method' ) ) {
 		/**
 		 * Pathao shipping class.
 		 */
-		class WC_Pathao_Method extends WC_Shipping_Method {
+		class SDEVS_Pathao_Method extends WC_Shipping_Method {
 
 			/**
 			 * Constructor for your shipping class

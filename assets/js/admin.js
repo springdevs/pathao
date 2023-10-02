@@ -1,4 +1,6 @@
 jQuery(document).ready(function ($) {
+	const nonce = $('#pathao_send_order_nonce').val();
+
 	$('#pathao-setup').on('submit', async function (e) {
 		e.preventDefault();
 
@@ -12,6 +14,7 @@ jQuery(document).ready(function ($) {
 			url: pathao_admin_obj.ajax_url,
 			data: {
 				action: 'setup_pathao',
+				_wpnonce: $('#_wp_setup_nonce').val(),
 				client_id: $('#pathao_client_id').val(),
 				client_secret: $('#pathao_client_secret').val(),
 				client_username: $('#pathao_client_username').val(),
@@ -59,7 +62,7 @@ jQuery(document).ready(function ($) {
 		window.location.reload();
 	});
 
-	if ($('#pathao_city').val() !== '') {
+	if ($('#pathao_city').val() && $('#pathao_city').val() !== '') {
 		getZones($('#pathao_city').val());
 	}
 
@@ -87,6 +90,7 @@ jQuery(document).ready(function ($) {
 			data: {
 				action: 'get_zone_areas',
 				zone: zone,
+				nonce,
 				order_id: pathao_admin_obj.order_id,
 			},
 			success: function (res) {
@@ -117,7 +121,6 @@ jQuery(document).ready(function ($) {
 
 	$('#pathao_submit_shipping').on('click', function () {
 		const order_id = $('#pathao_order_id').val();
-		const nonce = $('#pathao_send_order_nonce').val();
 		const store = $('#pathao_store').val();
 		const delivery_type = $('#pathao_delivery_type').val();
 		const city = $('#pathao_city').val();
@@ -298,6 +301,7 @@ jQuery(document).ready(function ($) {
 			data: {
 				action: 'get_city_zones',
 				city: city,
+				nonce,
 				order_id: pathao_admin_obj.order_id,
 			},
 			success: function (res) {
