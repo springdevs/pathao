@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Pathao
+ * Plugin Name: Integration of Pathao for WooCommerce
  * Plugin URI: https://springdevs.com/plugin/pathao
  * Description: Pathao integration for WooCommerce
  * Version: 1.0.3
