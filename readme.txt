@@ -1,4 +1,4 @@
-=== Pathao for WooCommerce ===
+=== Integration of Pathao for WooCommerce ===
 Contributors: naminbd, ok9xnirab
 Donate link:
 Tags: pathao, pathao-shipping

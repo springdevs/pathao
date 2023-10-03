@@ -52,12 +52,9 @@ class Settings
 
 	public function pro_version_notice()
 	{
-		if (!is_sdevs_pathao_pro_activated() && isset($_GET['section']) && 'pathao' === $_GET['section']) :
-		?>
-			<p style="color:red;">Pathao pro version required to work frontend shipping !</p>
-			<!--		<div style="position: absolute; inset: 0; background-color: blue;"></div>-->
-<?php
-		endif;
+		if (!is_sdevs_pathao_pro_activated() && isset($_GET['section']) && 'pathao' === $_GET['section']) {
+			echo wp_kses_post('<p style="color:red;">Pathao pro version required to work frontend shipping !</p>');
+		}
 	}
 
 	public function init_scripts()
