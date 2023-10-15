@@ -4,6 +4,9 @@ namespace SpringDevs\Pathao\Admin;
 
 class Order {
 
+	/**
+	 * The class contructor.
+	 */
 	public function __construct() {
 		add_action( 'add_meta_boxes', array( $this, 'create_meta_boxes' ) );
 		add_action( 'pathao_order_created', array( $this, 'store_log_after_creation' ) );
@@ -25,7 +28,7 @@ class Order {
 				'order_status'      => $res->order_status,
 				'order_status_slug' => $res->order_status,
 				'reason'            => __( 'Pathao Order created & it\'s pending.', 'sdevs_pathao' ),
-				'updated_at'        => current_time('mysql')
+				'updated_at'        => current_time( 'mysql' ),
 			)
 		);
 	}

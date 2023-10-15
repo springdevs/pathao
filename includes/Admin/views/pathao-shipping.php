@@ -25,7 +25,7 @@
 			<?php
 			foreach ( $cities as $city ) :
 				?>
-				<option value="<?php echo esc_attr( $city->city_id ); ?>" <?php selected( $city->city_id, get_post_meta( get_the_ID(), '_shipping_pathao_city_id', true ) ); ?>><?php echo esc_html( $city->city_name ); ?></option>
+				<option value="<?php echo esc_attr( $city->city_id ); ?>" <?php selected( $city->city_id, get_post_meta( get_the_ID(), '_shipping_pathao_city_id', is_sdevs_pathao_pro_activated() ) ); ?>><?php echo esc_html( $city->city_name ); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</p>
