@@ -41,7 +41,7 @@
 	</p>
 	<p class="form-field">
 		<label for="pathao_weight"><b>Total weight (kg)</b></label>
-		<input type="text" value="<?php echo esc_html( $total_weight ); ?>" id="pathao_weight" name="pathao_weight" />
+		<input type="text" value="<?php echo is_sdevs_pathao_pro_activated() ? esc_html( $total_weight ): ''; ?>" id="pathao_weight" name="pathao_weight" />
 	</p>
 	<p class="form-field">
 		<label for="pathao_amount"><b>Amount to Collect</b></label>

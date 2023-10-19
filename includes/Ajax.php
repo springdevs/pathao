@@ -71,7 +71,7 @@ class Ajax {
 	/**
 	 * Get zones from pathao server.
 	 *
-	 * @return array
+	 * @return void
 	 */
 	public function get_city_zones() {
 		if ( ! isset( $_POST['nonce'], $_POST['order_id'], $_POST['city'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'pathao_send_order' ) ) {
@@ -94,7 +94,7 @@ class Ajax {
 	/**
 	 * Get areas from pathao server.
 	 *
-	 * @return array
+	 * @return void
 	 */
 	public function get_zone_areas() {
 		if ( ! isset( $_POST['nonce'], $_POST['order_id'], $_POST['zone'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'pathao_send_order' ) ) {
