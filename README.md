@@ -4,6 +4,12 @@ Pathao integration for WooCommerce
 
 ## Changelog
 
+### 1.0.4
+- Fix wrong weight on admin order
+
+### 1.0.3
+- `At_the_Sorting_HUB` status setting added.
+
 ### 1.0.2
 
 - Ability to sent order again to pathao if order was cancelled or failed.

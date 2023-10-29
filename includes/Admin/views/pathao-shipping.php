@@ -1,5 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) {
-	exit;} ?>
+	exit;
+} ?>
 
 <div class="sdevs_sidebar_form">
 	<?php wp_nonce_field( 'pathao_send_order', 'pathao_send_order_nonce' ); ?>
@@ -25,7 +26,8 @@
 			<?php
 			foreach ( $cities as $city ) :
 				?>
-				<option value="<?php echo esc_attr( $city->city_id ); ?>" <?php selected( $city->city_id, get_post_meta( get_the_ID(), '_shipping_pathao_city_id', is_sdevs_pathao_pro_activated() ) ); ?>><?php echo esc_html( $city->city_name ); ?></option>
+				<option
+					value="<?php echo esc_attr( $city->city_id ); ?>" <?php is_sdevs_pathao_pro_activated() ? selected( $city->city_id, get_post_meta( get_the_ID(), '_shipping_pathao_city_id', true ) ) : ""; ?>><?php echo esc_html( $city->city_name ); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</p>
@@ -41,7 +43,8 @@
 	</p>
 	<p class="form-field">
 		<label for="pathao_weight"><b>Total weight (kg)</b></label>
-		<input type="text" value="<?php echo is_sdevs_pathao_pro_activated() ? esc_html( $total_weight ): ''; ?>" id="pathao_weight" name="pathao_weight" />
+		<input type="text" value="<?php echo is_sdevs_pathao_pro_activated() ? esc_html( $total_weight ) : ''; ?>"
+			   id="pathao_weight" name="pathao_weight" />
 	</p>
 	<p class="form-field">
 		<label for="pathao_amount"><b>Amount to Collect</b></label>
@@ -52,6 +55,12 @@
 		<textarea style="width: 100%;" id="pathao_special_instruction" name="pathao_special_instruction"></textarea>
 	</p>
 
-	<input class="button-primary" id="pathao_submit_shipping" type="button" value="<?php echo $status && in_array( $status, array( 'Pickup_Failed', 'Pickup_Cancelled', 'Delivery_Failed' ), true ) ? 'Send Order Again' : 'Send Order'; ?>" />
-	<div class="spinner pathao-shipping-spinner" style="float:none;width:auto;height:auto;padding:10px 0 10px 50px;background-position:20px 0;position: relative;left: -25px;top: -1px;"></div>
+	<input class="button-primary" id="pathao_submit_shipping" type="button"
+		   value="<?php echo $status && in_array( $status, array(
+			   'Pickup_Failed',
+			   'Pickup_Cancelled',
+			   'Delivery_Failed'
+		   ), true ) ? 'Send Order Again' : 'Send Order'; ?>" />
+	<div class="spinner pathao-shipping-spinner"
+		 style="float:none;width:auto;height:auto;padding:10px 0 10px 50px;background-position:20px 0;position: relative;left: -25px;top: -1px;"></div>
 </div>
