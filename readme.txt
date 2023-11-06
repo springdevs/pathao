@@ -1,68 +1,85 @@
-=== Integration of Pathao for WooCommerce ===
-Contributors: springdevs, naminbd, ok9xnirab
-Donate link:
-Tags: pathao, pathao-shipping, woocommerce-shipping
-Requires at least: 4.0
-Tested up to: 6.4
-Stable tag: 1.0.4
-Requires PHP: 7.0
-License: GPLv2 or later
+=== Pathao Integration for WooCommerce ===  
+Contributors: springdevs, naminbd, ok9xnirab  
+Donate link: http://springdevs.com/  
+Tags: pathao, pathao-shipping, woocommerce-shipping, pathao integration, pathao courier, bd courier, bd shipping
+Requires at least: 4.0  
+Tested up to: 6.4  
+Stable tag: 1.0.4  
+Requires PHP: 7.0  
+License: GPLv2 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Pathao courier integration for WooCommerce
 
 == Description ==
 
-Pathao courier (for Bangladesh) integration for WooCommerce.
+Pathao integration for WooCommerce. 
+Here we made a solution that will take all the information from the user and send that directly to Pathao. The information will directly interact with Pathao and calculate the delivery charge for each order. So you donâ€™t need to worry about the delivery charge or call the customer if any change in the delivery charge. ðŸ‘ŠðŸ‘Š
 
 [youtube https://youtu.be/nrdH7hWVTbc]
 
-## Features
 
-### Free
+## ðŸ‘‰ðŸ‘‰ Features
 
-1. Sent order to pathao
-2. Track pathao order status from woocommerce order page
+### ðŸ’ Free ðŸ’
 
-### Premium
+1.  Sent order to Pathao
+2.  Track pathao order status from woocommerce order page
 
-1. Register pathao as shipping method
-2. Automatically calculate shipping charge based on Location
-3. Replace WooCommerce Checkout fields to support Range of Locations
-4. Synchronise WooCommerce Order with Pathao Order
-5. Multi checkout support
-6. More Customizable.
+### ðŸ”¥ðŸ”¥ Premium ðŸ”¥ðŸ”¥
+
+Explore our [Premium Version here](https://springdevs.com/plugin/pathao). 
+
+1.  Register Pathao as a shipping method
+2.  Automatically calculate shipping charge based on location
+3.  Replace WooCommerce Checkout fields to support a Range of Locations
+4.  Synchronise WooCommerce Order with Pathao Order
+5.  Multi checkout support
+6.  More Customizable.
+
+## ðŸ‘‰ðŸ‘‰ Why should you choose us? 
+1. Easy and simple installation process
+2. Fully automatic delivery charge calculation
+3. No need to worry about the delivery location
+4. No need to send data manually to Pathao
+5. Hassle-free one-click delivery solution
+
+
+
 
 == Installation ==
 
 = Installation from within WordPress =
 
-        1. Visit 'Plugins > 'Add New'.
-        2. Search for 'Integration of Pathao for WooCommerce'.
-        3. Install and activate the 'Integration of Pathao for WooCommerce' plugin.
+```
+    1. Visit 'Plugins > 'Add New'.
+    2. Search for 'Integration of Pathao for WooCommerce'.
+    3. Install and activate the 'Integration of Pathao for WooCommerce' plugin.
 
-    = Manual installation =
+= Manual installation =
 
-        1. Upload the entire `Integration of Pathao for WooCommerce` folder to the `/wp-content/plugins/` directory.
-        2. Visit 'Plugins'.
-        3. Activate the `Integration of Pathao for WooCommerce` plugin.
-
+    1. Upload the entire `Integration of Pathao for WooCommerce` folder to the `/wp-content/plugins/` directory.
+    2. Visit 'Plugins'.
+    3. Activate the `Integration of Pathao for WooCommerce` plugin.
+```
 
 == Screenshots ==
 
-1. Settings page
-2. Setup plugin
-3. Send order to pathao
-4. Pathao order status
-
+1.  Settings page
+2.  Setup plugin
+3.  Send the order to Pathao
+4.  Pathao order status
 
 == Changelog ==
 
-= 1.0.4 =
-* Fix wrong weight on admin order
+ = 1.0.4 =
 
-= 1.0.2 =
-* Ability to sent order again to pathao if order was cancelled or failed.
+*   Fix the wrong weight on the admin order
 
-= 1.0.1 =
-* Initial release
+ = 1.0.2 =
+
+*   The ability to send an order again to Pathao if the order was canceled or failed.
+
+ = 1.0.1 =
+
+*   Initial release
