@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fff3a91e4a6d081e75af638a8c36044e",
+    "content-hash": "af4637f91d7b1efab28fab09d6447a6c",
     "packages": [],
     "packages-dev": [
         {
@@ -210,12 +210,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCompatibility/PHPCompatibilityWP.git",
-                "reference": "96bce8776a2a83c6bad3a7e1ae75b2598b660197"
+                "reference": "a1d8194a8442be9b7087136f5ec6cb2125716c8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibilityWP/zipball/96bce8776a2a83c6bad3a7e1ae75b2598b660197",
-                "reference": "96bce8776a2a83c6bad3a7e1ae75b2598b660197",
+                "url": "https://api.github.com/repos/PHPCompatibility/PHPCompatibilityWP/zipball/a1d8194a8442be9b7087136f5ec6cb2125716c8d",
+                "reference": "a1d8194a8442be9b7087136f5ec6cb2125716c8d",
                 "shasum": ""
             },
             "require": {
@@ -258,7 +258,7 @@
                 "issues": "https://github.com/PHPCompatibility/PHPCompatibilityWP/issues",
                 "source": "https://github.com/PHPCompatibility/PHPCompatibilityWP"
             },
-            "time": "2023-08-18T03:16:17+00:00"
+            "time": "2023-11-14T01:21:01+00:00"
         },
         {
             "name": "phpcsstandards/phpcsextra",
@@ -266,12 +266,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSExtra.git",
-                "reference": "746c3190ba8eb2f212087c947ba75f4f5b9a58d5"
+                "reference": "7ef54bb093e935e7b530049b5696b6f74c33eaa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSExtra/zipball/746c3190ba8eb2f212087c947ba75f4f5b9a58d5",
-                "reference": "746c3190ba8eb2f212087c947ba75f4f5b9a58d5",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSExtra/zipball/7ef54bb093e935e7b530049b5696b6f74c33eaa8",
+                "reference": "7ef54bb093e935e7b530049b5696b6f74c33eaa8",
                 "shasum": ""
             },
             "require": {
@@ -320,9 +320,10 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPCSStandards/PHPCSExtra/issues",
+                "security": "https://github.com/PHPCSStandards/PHPCSExtra/security/policy",
                 "source": "https://github.com/PHPCSStandards/PHPCSExtra"
             },
-            "time": "2023-09-20T22:06:18+00:00"
+            "time": "2023-11-23T05:37:34+00:00"
         },
         {
             "name": "phpcsstandards/phpcsutils",
@@ -330,12 +331,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-                "reference": "77a6aa4e6abc437eb0cb71702c1a635655a33af8"
+                "reference": "e385f2d80a745a0c3cd6a55b09081ba7a3b4e096"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/77a6aa4e6abc437eb0cb71702c1a635655a33af8",
-                "reference": "77a6aa4e6abc437eb0cb71702c1a635655a33af8",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/e385f2d80a745a0c3cd6a55b09081ba7a3b4e096",
+                "reference": "e385f2d80a745a0c3cd6a55b09081ba7a3b4e096",
                 "shasum": ""
             },
             "require": {
@@ -394,9 +395,10 @@
             "support": {
                 "docs": "https://phpcsutils.com/",
                 "issues": "https://github.com/PHPCSStandards/PHPCSUtils/issues",
+                "security": "https://github.com/PHPCSStandards/PHPCSUtils/security/policy",
                 "source": "https://github.com/PHPCSStandards/PHPCSUtils"
             },
-            "time": "2023-09-13T20:12:39+00:00"
+            "time": "2023-11-23T05:15:20+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -404,12 +406,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "7566b4d89de1d08d2a8ad85910507d6633a35d28"
+                "reference": "7763e2e1f773cb0615ed8afa133189fc804f583d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/7566b4d89de1d08d2a8ad85910507d6633a35d28",
-                "reference": "7566b4d89de1d08d2a8ad85910507d6633a35d28",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/7763e2e1f773cb0615ed8afa133189fc804f583d",
+                "reference": "7763e2e1f773cb0615ed8afa133189fc804f583d",
                 "shasum": ""
             },
             "require": {
@@ -454,7 +456,7 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2023-09-11T11:08:03+00:00"
+            "time": "2023-11-02T00:47:31+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -546,12 +548,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "fc6d64ee8c0c4985cbd4ec3cd38a926667cda38e"
+                "reference": "3c833bc07610b1a2cc8b994d7b989e42fd38a089"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/fc6d64ee8c0c4985cbd4ec3cd38a926667cda38e",
-                "reference": "fc6d64ee8c0c4985cbd4ec3cd38a926667cda38e",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/3c833bc07610b1a2cc8b994d7b989e42fd38a089",
+                "reference": "3c833bc07610b1a2cc8b994d7b989e42fd38a089",
                 "shasum": ""
             },
             "require": {
@@ -621,7 +623,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-12T12:46:02+00:00"
+            "time": "2023-11-09T08:30:23+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
@@ -629,12 +631,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
-                "reference": "7722c0b8a6f4eb615be4ba8ebe22ed92a5fa87d7"
+                "reference": "fe7895876b6ea344fa87bb82a2fbce73f90e9897"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/7722c0b8a6f4eb615be4ba8ebe22ed92a5fa87d7",
-                "reference": "7722c0b8a6f4eb615be4ba8ebe22ed92a5fa87d7",
+                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/fe7895876b6ea344fa87bb82a2fbce73f90e9897",
+                "reference": "fe7895876b6ea344fa87bb82a2fbce73f90e9897",
                 "shasum": ""
             },
             "require": {
@@ -688,7 +690,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-09-20T23:16:50+00:00"
+            "time": "2023-11-23T08:44:49+00:00"
         }
     ],
     "aliases": [],
@@ -701,7 +703,9 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-json": "*"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

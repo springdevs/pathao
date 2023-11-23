@@ -182,9 +182,9 @@ function sdevs_pathao_shipping_method_init() {
 						'disabled'    => ! is_sdevs_pathao_pro_activated(),
 					),
 					'multi_checkout_support'    => array(
-						'title'       => __( 'Multi Checkout', 'sdevs_pathao' ),
+						'title'       => __( 'Popup Checkout', 'sdevs_pathao' ),
 						'type'        => 'checkbox',
-						'description' => __( 'Support Multi checkout.', 'sdevs_pathao' ),
+						'description' => __( 'Use popup checkout only.', 'sdevs_pathao' ),
 						'default'     => 'no',
 						'disabled'    => ! is_sdevs_pathao_pro_activated(),
 					),
