@@ -3,7 +3,7 @@
  * Plugin Name: Pathao Integration for WooCommerce
  * Plugin URI: https://springdevs.com/plugin/pathao
  * Description: Pathao integration for WooCommerce
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: SpringDevs
  * Author URI: https://springdevs.com
  * License: GPLv2
@@ -61,7 +61,7 @@ final class Sdevs_pathao {
 	 *
 	 * @since 1.0.0
 	 */
-	const VERSION = '1.0.4';
+	const VERSION = '1.0.5';
 
 	/**
 	 * Holds various class instances.

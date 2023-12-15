@@ -65,7 +65,12 @@ class API {
 		$order_id       = sanitize_text_field( $request->get_param( 'merchant_order_id' ) );
 		$status         = sanitize_text_field( $request->get_param( 'order_status_slug' ) );
 
-		$order_consignment_id = get_post_meta( $order_id, '_pathao_consignment_id', true );
+		$order = wc_get_order( $order_id );
+		if ( ! $order ) {
+			return;
+		}
+
+		$order_consignment_id = $order->get_meta( '_pathao_consignment_id', true );
 
 		if ( $consignment_id !== $order_consignment_id ) {
 			return new WP_Error( 'invalid_consignment_id', 'Invalid consignment id.', array( 'status' => 400 ) );
@@ -83,7 +88,7 @@ class API {
 			}
 		}
 
-		update_post_meta( $order_id, '_pathao_order_status', $status );
+		$order->update_meta_data( '_pathao_order_status', $status );
 		do_action(
 			'pathao_process_webhook',
 			$status,

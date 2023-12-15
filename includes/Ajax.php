@@ -143,9 +143,10 @@ class Ajax {
 			}
 
 			$res_data = $res->data;
-			update_post_meta( $order_id, '_pathao_consignment_id', $res_data->consignment_id );
-			update_post_meta( $order_id, '_pathao_delivery_fee', $res_data->delivery_fee );
-			update_post_meta( $order_id, '_pathao_order_status', $res_data->order_status );
+			$order    = wc_get_order( $order_id );
+			$order->update_meta_data( '_pathao_consignment_id', $res_data->consignment_id );
+			$order->update_meta_data( '_pathao_delivery_fee', $res_data->delivery_fee );
+			$order->update_meta_data( '_pathao_order_status', $res_data->order_status );
 
 			do_action( 'pathao_order_created', $res_data );
 

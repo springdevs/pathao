@@ -3,7 +3,7 @@
 namespace SpringDevs\Pathao\Admin;
 
 use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-
+use WC_Order;
 
 class Order {
 
@@ -51,31 +51,45 @@ class Order {
 		);
 	}
 
+	/**
+	 * Display order shipping form and details.
+	 */
 	public function pathao_shipping() {
-		$consignment_id = get_post_meta( get_the_ID(), '_pathao_consignment_id', true );
-		$status         = get_post_meta( get_the_ID(), '_pathao_order_status', true );
+		$order = wc_get_order( get_the_ID() );
+		if ( ! $order ) {
+			return;
+		}
+		$consignment_id = $order->get_meta( '_pathao_consignment_id' );
+		$status         = $order->get_meta( '_pathao_order_status' );
 
 		if ( $consignment_id && ! in_array( $status, array( 'Pickup_Failed', 'Pickup_Cancelled', 'Delivery_Failed' ), true ) ) {
-			$this->display_pathao_details();
+			$this->display_pathao_details( $order );
 		} elseif ( $consignment_id && in_array( $status, array( 'Pickup_Failed', 'Pickup_Cancelled', 'Delivery_Failed' ), true ) ) {
-			$this->display_pathao_details();
-			$this->pathao_shipping_form();
+			$this->display_pathao_details( $order );
+			$this->pathao_shipping_form( $order );
 		} else {
-			$this->pathao_shipping_form();
+			$this->pathao_shipping_form( $order );
 		}
 	}
 
-	public function display_pathao_details() {
-		$consignment_id = get_post_meta( get_the_ID(), '_pathao_consignment_id', true );
-		$delivery_fee   = get_post_meta( get_the_ID(), '_pathao_delivery_fee', true );
-		$order_status   = get_post_meta( get_the_ID(), '_pathao_order_status', true );
+	/**
+	 *  Display shipping details.
+	 *
+	 *  @param WC_Order $order Current order.
+	 */
+	public function display_pathao_details( WC_Order $order ) {
+		$consignment_id = $order->get_meta( '_pathao_consignment_id' );
+		$delivery_fee   = $order->get_meta( '_pathao_delivery_fee' );
+		$order_status   = $order->get_meta( '_pathao_order_status' );
 		include 'views/pathao-shipping-details.php';
 	}
 
 	/**
 	 * Display shipping form.
+	 *
+	 * @param WC_Order $order Current order.
 	 */
-	public function pathao_shipping_form() {
+	public function pathao_shipping_form( WC_Order $order ) {
 		$order_id = get_the_ID();
 		wp_localize_script(
 			'pathao_admin_script',
@@ -92,7 +106,6 @@ class Order {
 		$cities = sdevs_get_pathao_data( 'aladdin/api/v1/countries/1/city-list' );
 		$cities = $cities && 'success' === $cities->type ? $cities->data->data : array();
 
-		$order = wc_get_order( $order_id );
 		if ( $order->get_payment_method() === 'cod' ) {
 			$amount = 0;
 		} else {
@@ -106,7 +119,7 @@ class Order {
 				$total_weight += empty( $product->get_weight() ) ? floatval( sdevs_pathao_settings( 'default_weight' ) ) : floatval( intval( $product->get_weight() ) * $order_item['quantity'] );
 			}
 		}
-		$status = get_post_meta( get_the_ID(), '_pathao_order_status', true );
+		$status = $order->get_meta( '_pathao_order_status' );
 
 		include 'views/pathao-shipping.php';
 	}

@@ -27,7 +27,7 @@
 			foreach ( $cities as $city ) :
 				?>
 				<option
-					value="<?php echo esc_attr( $city->city_id ); ?>" <?php is_sdevs_pathao_pro_activated() ? selected( $city->city_id, get_post_meta( get_the_ID(), '_shipping_pathao_city_id', true ) ) : ""; ?>><?php echo esc_html( $city->city_name ); ?></option>
+					value="<?php echo esc_attr( $city->city_id ); ?>" <?php is_sdevs_pathao_pro_activated() ? selected( $city->city_id, $order->get_meta( '_shipping_pathao_city_id' ) ) : ''; ?>><?php echo esc_html( $city->city_name ); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</p>
@@ -44,7 +44,7 @@
 	<p class="form-field">
 		<label for="pathao_weight"><b>Total weight (kg)</b></label>
 		<input type="text" value="<?php echo is_sdevs_pathao_pro_activated() ? esc_html( $total_weight ) : ''; ?>"
-			   id="pathao_weight" name="pathao_weight" />
+				id="pathao_weight" name="pathao_weight" />
 	</p>
 	<p class="form-field">
 		<label for="pathao_amount"><b>Amount to Collect</b></label>
@@ -56,11 +56,19 @@
 	</p>
 
 	<input class="button-primary" id="pathao_submit_shipping" type="button"
-		   value="<?php echo $status && in_array( $status, array(
-			   'Pickup_Failed',
-			   'Pickup_Cancelled',
-			   'Delivery_Failed'
-		   ), true ) ? 'Send Order Again' : 'Send Order'; ?>" />
+			value="
+			<?php
+			echo $status && in_array(
+				$status,
+				array(
+					'Pickup_Failed',
+					'Pickup_Cancelled',
+					'Delivery_Failed',
+				),
+				true
+			) ? 'Send Order Again' : 'Send Order';
+			?>
+			" />
 	<div class="spinner pathao-shipping-spinner"
-		 style="float:none;width:auto;height:auto;padding:10px 0 10px 50px;background-position:20px 0;position: relative;left: -25px;top: -1px;"></div>
+		style="float:none;width:auto;height:auto;padding:10px 0 10px 50px;background-position:20px 0;position: relative;left: -25px;top: -1px;"></div>
 </div>

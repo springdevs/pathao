@@ -4,7 +4,7 @@ Donate link: http://springdevs.com/
 Tags: pathao, pathao-shipping, woocommerce-shipping, pathao integration, pathao courier, bd courier, bd shipping
 Requires at least: 4.0  
 Tested up to: 6.4  
-Stable tag: 1.0.4  
+Stable tag: 1.0.5
 Requires PHP: 7.0  
 License: GPLv2 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -72,9 +72,18 @@ Explore our [Premium Version here](https://springdevs.com/plugin/pathao).
 
 == Changelog ==
 
+ = 1.0.5 =
+
+*   HPOS support added.
+*   Several issues solved.
+
  = 1.0.4 =
 
 *   Fix the wrong weight on the admin order
+
+ = 1.0.3 =
+
+*   `At_the_Sorting_HUB` status setting added.
 
  = 1.0.2 =
 
