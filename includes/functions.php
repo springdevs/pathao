@@ -128,5 +128,5 @@ function sdevs_pathao_store_id() {
 function sdevs_pathao_settings( $key ) {
 	$settings = get_option( 'woocommerce_pathao_settings' );
 
-	return $settings[ $key ];
+	return $settings && is_array( $settings ) ? $settings[ $key ] : false;
 }

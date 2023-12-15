@@ -81,6 +81,7 @@ function sdevs_pathao_shipping_method_init() {
 					$this->update_option( 'delivered_status', 'wc-completed' );
 					$this->update_option( 'return_status', 'wc-processing' );
 					$this->update_option( 'on_hold_status', 'wc-on-hold' );
+					$this->update_option( 'multi_checkout_support', 'no' );
 				}
 
 				$this->form_fields = array(

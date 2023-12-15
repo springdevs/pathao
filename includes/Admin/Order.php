@@ -2,6 +2,9 @@
 
 namespace SpringDevs\Pathao\Admin;
 
+use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+
+
 class Order {
 
 	/**
@@ -34,11 +37,15 @@ class Order {
 	}
 
 	public function create_meta_boxes() {
+		$screen = wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
+		? wc_get_page_screen_id( 'shop-order' )
+		: 'shop_order';
+
 		add_meta_box(
 			'pathao_order_wc',
 			__( 'Pathao Shipping', 'sdevs_pathao' ),
 			array( $this, 'pathao_shipping' ),
-			'shop_order',
+			$screen,
 			'side',
 			'default'
 		);
@@ -96,7 +103,7 @@ class Order {
 		foreach ( $order->get_items() as $order_item ) {
 			$product = $order_item->get_product();
 			if ( ! $product->is_virtual() ) {
-				$total_weight += empty($product->get_weight()) ? floatval( sdevs_pathao_settings( 'default_weight' ) ) : floatval( intval( $product->get_weight() ) * $order_item['quantity'] );
+				$total_weight += empty( $product->get_weight() ) ? floatval( sdevs_pathao_settings( 'default_weight' ) ) : floatval( intval( $product->get_weight() ) * $order_item['quantity'] );
 			}
 		}
 		$status = get_post_meta( get_the_ID(), '_pathao_order_status', true );
