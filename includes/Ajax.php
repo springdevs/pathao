@@ -147,6 +147,7 @@ class Ajax {
 			$order->update_meta_data( '_pathao_consignment_id', $res_data->consignment_id );
 			$order->update_meta_data( '_pathao_delivery_fee', $res_data->delivery_fee );
 			$order->update_meta_data( '_pathao_order_status', $res_data->order_status );
+			$order->save();
 
 			do_action( 'pathao_order_created', $res_data );
 

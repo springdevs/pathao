@@ -106,11 +106,7 @@ class Order {
 		$cities = sdevs_get_pathao_data( 'aladdin/api/v1/countries/1/city-list' );
 		$cities = $cities && 'success' === $cities->type ? $cities->data->data : array();
 
-		if ( $order->get_payment_method() === 'cod' ) {
-			$amount = 0;
-		} else {
-			$amount = $order->get_total();
-		}
+		$amount = $order->get_total();
 
 		$total_weight = 0;
 		foreach ( $order->get_items() as $order_item ) {
@@ -120,6 +116,8 @@ class Order {
 			}
 		}
 		$status = $order->get_meta( '_pathao_order_status' );
+
+		ray( $order->get_meta( '_shipping_pathao_city_id' ), get_post_meta( $order->get_id(), '_shipping_pathao_city_id', true ) );
 
 		include 'views/pathao-shipping.php';
 	}

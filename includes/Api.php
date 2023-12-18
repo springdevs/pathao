@@ -89,6 +89,8 @@ class API {
 		}
 
 		$order->update_meta_data( '_pathao_order_status', $status );
+		$order->save();
+
 		do_action(
 			'pathao_process_webhook',
 			$status,
