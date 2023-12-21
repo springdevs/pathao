@@ -199,6 +199,7 @@ class Ajax {
 		$order             = wc_get_order( $order_id );
 		$recipient_name    = $order->get_formatted_shipping_full_name() !== ' ' ? $order->get_formatted_shipping_full_name() : $order->get_formatted_billing_full_name();
 		$recipient_phone   = $order->get_shipping_phone() !== '' ? $order->get_shipping_phone() : $order->get_billing_phone();
+		$recipient_phone   = substr( $recipient_phone, 0, 3 ) === '+88' ? str_replace( '+88', '', $recipient_phone ) : $recipient_phone;
 		$recipient_address = $order->get_formatted_shipping_address() !== '' ? $order->get_formatted_shipping_address() : $order->get_formatted_billing_address();
 
 		$body = array(
