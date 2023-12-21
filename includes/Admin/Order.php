@@ -2,16 +2,18 @@
 
 namespace SpringDevs\Pathao\Admin;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 use WC_Order;
 
+/**
+ * Admin order related stuffs.
+ */
 class Order {
 
 	/**
 	 * The class contructor.
 	 */
 	public function __construct() {
-		add_action( 'add_meta_boxes', array( $this, 'create_meta_boxes' ) );
+		add_action( 'add_meta_boxes', array( $this, 'register_meta_boxes' ) );
 		add_action( 'pathao_order_created', array( $this, 'store_log_after_creation' ) );
 	}
 
@@ -36,8 +38,11 @@ class Order {
 		);
 	}
 
-	public function create_meta_boxes() {
-		$screen = wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
+	/**
+	 * Register metaboxes under order details page.
+	 */
+	public function register_meta_boxes() {
+		$screen = sdevs_wc_order_hpos_enabled()
 		? wc_get_page_screen_id( 'shop-order' )
 		: 'shop_order';
 
@@ -55,7 +60,7 @@ class Order {
 	 * Display order shipping form and details.
 	 */
 	public function pathao_shipping() {
-		$order = wc_get_order( get_the_ID() );
+		$order = wc_get_order( sdevs_wc_order_hpos_enabled() ? esc_html( $_GET['id'] ) : get_the_ID() );
 		if ( ! $order ) {
 			return;
 		}
@@ -90,7 +95,7 @@ class Order {
 	 * @param WC_Order $order Current order.
 	 */
 	public function pathao_shipping_form( WC_Order $order ) {
-		$order_id = get_the_ID();
+		$order_id = $order->get_id();
 		wp_localize_script(
 			'pathao_admin_script',
 			'pathao_admin_obj',
@@ -116,8 +121,6 @@ class Order {
 			}
 		}
 		$status = $order->get_meta( '_pathao_order_status' );
-
-		ray( $order->get_meta( '_shipping_pathao_city_id' ), get_post_meta( $order->get_id(), '_shipping_pathao_city_id', true ) );
 
 		include 'views/pathao-shipping.php';
 	}
