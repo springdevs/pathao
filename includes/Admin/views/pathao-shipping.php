@@ -51,6 +51,10 @@
 		<input type="text" value="<?php echo esc_html( $amount ); ?>" id="pathao_amount" name="pathao_amount" />
 	</p>
 	<p class="form-field">
+		<label for="pathao_item_description"><b>Item Description</b></label>
+		<textarea style="width: 100%;" id="pathao_item_description" name="pathao_item_description"></textarea>
+	</p>
+	<p class="form-field">
 		<label for="pathao_special_instruction"><b>Special Instruction</b></label>
 		<textarea style="width: 100%;" id="pathao_special_instruction" name="pathao_special_instruction"></textarea>
 	</p>

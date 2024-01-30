@@ -126,6 +126,7 @@ jQuery(document).ready(function ($) {
 		const city = $('#pathao_city').val();
 		const zone = $('#pathao_zone').val();
 		const area = $('#pathao_area').val();
+		const item_description = $('#pathao_item_description').val();
 		const special_instruction = $('#pathao_special_instruction').val();
 		const amount = parseFloat($('#pathao_amount').val());
 		const item_weight = parseFloat($('#pathao_weight').val());
@@ -248,13 +249,12 @@ jQuery(document).ready(function ($) {
 				zone: zone,
 				area: area,
 				special_instruction: special_instruction,
+				item_description: item_description,
 				item_weight: item_weight,
 				item_type: item_type,
 				amount: amount,
 			},
 			success: function (res) {
-				$('#pathao_submit_shipping').prop('disabled', false);
-				$('.pathao-shipping-spinner').removeClass('is-active');
 				if (res.success) {
 					$.toast({
 						position: 'bottom-center',
@@ -266,6 +266,8 @@ jQuery(document).ready(function ($) {
 						window.location.reload();
 					}, 3000);
 				} else {
+					$('#pathao_submit_shipping').prop('disabled', false);
+					$('.pathao-shipping-spinner').removeClass('is-active');
 					const errors = res.errors;
 					$.each(errors, function (key, value) {
 						$.toast({
@@ -278,6 +280,8 @@ jQuery(document).ready(function ($) {
 				}
 			},
 			error: function (error) {
+				$('#pathao_submit_shipping').prop('disabled', false);
+				$('.pathao-shipping-spinner').removeClass('is-active');
 				console.log(error);
 			},
 		});

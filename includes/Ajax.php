@@ -118,19 +118,20 @@ class Ajax {
 	 * Send order to Pathao.
 	 */
 	public function send_order_to_pathao() {
-		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'pathao_send_order' ) && isset( $_POST['order_id'] ) && isset( $_POST['city'] ) && isset( $_POST['zone'] ) && isset( $_POST['area'] ) && isset( $_POST['special_instruction'] ) && isset( $_POST['delivery_type'] ) && isset( $_POST['item_type'] ) && isset( $_POST['amount'] ) && isset( $_POST['item_weight'] ) ) {
+		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'pathao_send_order' ) && isset( $_POST['order_id'] ) && isset( $_POST['city'] ) && isset( $_POST['zone'] ) && isset( $_POST['area'] ) && isset( $_POST['special_instruction'], $_POST['item_description'] ) && isset( $_POST['delivery_type'] ) && isset( $_POST['item_type'] ) && isset( $_POST['amount'] ) && isset( $_POST['item_weight'] ) ) {
 			$order_id            = sanitize_text_field( wp_unslash( $_POST['order_id'] ) );
 			$store               = sdevs_pathao_store_id();
 			$city                = sanitize_text_field( wp_unslash( $_POST['city'] ) );
 			$zone                = sanitize_text_field( wp_unslash( $_POST['zone'] ) );
 			$area                = sanitize_text_field( wp_unslash( $_POST['area'] ) );
+			$item_description    = trim( sanitize_text_field( wp_unslash( $_POST['item_description'] ) ) );
 			$special_instruction = trim( sanitize_text_field( wp_unslash( $_POST['special_instruction'] ) ) );
 			$delivery_type       = sanitize_text_field( wp_unslash( $_POST['delivery_type'] ) );
 			$item_type           = sanitize_text_field( wp_unslash( $_POST['item_type'] ) );
 			$amount              = sanitize_text_field( wp_unslash( $_POST['amount'] ) );
 			$item_weight         = sanitize_text_field( wp_unslash( $_POST['item_weight'] ) );
 
-			$res = $this->send_order( $order_id, $store, $city, $zone, $area, $special_instruction, $delivery_type, $item_type, $amount, $item_weight );
+			$res = $this->send_order( $order_id, $store, $city, $zone, $area, $special_instruction, $item_description, $delivery_type, $item_type, $amount, $item_weight );
 
 			if ( 'error' === $res->type ) {
 				wp_send_json(
@@ -176,6 +177,7 @@ class Ajax {
 	 * @param int        $zone Zone Id.
 	 * @param string|int $area Area Id.
 	 * @param string     $special_instruction instructions.
+	 * @param string     $item_description item instructions.
 	 * @param string     $delivery_type Normal or On-Demand.
 	 * @param string     $item_type document or parcel.
 	 * @param float      $amount amount.
@@ -183,7 +185,7 @@ class Ajax {
 	 *
 	 * @return mixed
 	 */
-	public function send_order( $order_id, $store, $city, $zone, $area, $special_instruction, $delivery_type, $item_type, $amount, $item_weight ) {
+	public function send_order( $order_id, $store, $city, $zone, $area, $special_instruction, $item_description, $delivery_type, $item_type, $amount, $item_weight ) {
 		$base_url     = sdevs_pathao_base_url();
 		$access_token = get_option( 'pathao_access_token' );
 
@@ -213,6 +215,7 @@ class Ajax {
 			'delivery_type'       => $delivery_type,
 			'item_type'           => $item_type,
 			'special_instruction' => $special_instruction,
+			'item_description'    => $item_description,
 			'item_quantity'       => $order->get_item_count(),
 			'item_weight'         => $item_weight,
 			'amount_to_collect'   => $amount,
