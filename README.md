@@ -4,6 +4,10 @@ Pathao integration for WooCommerce
 
 ## Changelog
 
+### 1.0.6
+
+-   Item description field added.
+
 ### 1.0.5
 
 -   HPOS support added.

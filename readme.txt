@@ -4,7 +4,7 @@ Donate link: http://springdevs.com/
 Tags: pathao, pathao-shipping, woocommerce-shipping, pathao integration, pathao courier, bd courier, bd shipping
 Requires at least: 4.0  
 Tested up to: 6.4  
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 Requires PHP: 7.0  
 License: GPLv2 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,14 +19,14 @@ Here we made a solution that will take all the information from the user and sen
 [youtube https://youtu.be/nrdH7hWVTbc]
 
 
-## ðŸ‘‰ðŸ‘‰ Features
+## Features
 
-### ðŸ’ Free ðŸ’
+### Free
 
 1.  Sent order to Pathao
 2.  Track pathao order status from woocommerce order page
 
-### ðŸ”¥ðŸ”¥ Premium ðŸ”¥ðŸ”¥
+### Premium
 
 Explore our [Premium Version here](https://springdevs.com/plugin/pathao). 
 
@@ -37,7 +37,7 @@ Explore our [Premium Version here](https://springdevs.com/plugin/pathao).
 5.  Multi checkout support
 6.  More Customizable.
 
-## ðŸ‘‰ðŸ‘‰ Why should you choose us? 
+## Why should you choose us? 
 1. Easy and simple installation process
 2. Fully automatic delivery charge calculation
 3. No need to worry about the delivery location
@@ -71,6 +71,10 @@ Explore our [Premium Version here](https://springdevs.com/plugin/pathao).
 4.  Pathao order status
 
 == Changelog ==
+
+ = 1.0.6 =
+
+*   Item description field added.
 
  = 1.0.5 =
 

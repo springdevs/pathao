@@ -48,7 +48,7 @@
 	</p>
 	<p class="form-field">
 		<label for="pathao_amount"><b>Amount to Collect</b></label>
-		<input type="text" value="<?php echo esc_html( $amount ); ?>" id="pathao_amount" name="pathao_amount" />
+		<input type="text" value="<?php echo esc_html( round( $amount ) ); ?>" id="pathao_amount" name="pathao_amount" />
 	</p>
 	<p class="form-field">
 		<label for="pathao_item_description"><b>Item Description</b></label>
