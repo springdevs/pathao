@@ -85,10 +85,23 @@ function sdevs_pathao_shipping_method_init() {
 				}
 
 				$this->form_fields = array(
+					// 'enabled'                   => array(
+					// 'title'       => __( 'Enable', 'sdevs_pathao' ),
+					// 'type'        => 'checkbox',
+					// 'description' => __( 'Enable this shipping.', 'sdevs_pathao' ),
+					// 'default'     => is_sdevs_pathao_pro_activated() ? 'yes' : 'no',
+					// 'disabled'    => ! is_sdevs_pathao_pro_activated(),
+					// ),
 					'enabled'                   => array(
 						'title'       => __( 'Enable', 'sdevs_pathao' ),
-						'type'        => 'checkbox',
+						'type'        => 'select',
 						'description' => __( 'Enable this shipping.', 'sdevs_pathao' ),
+						'options'     => array(
+							'yes'            => 'Enable',
+							'yes_as_carrier' => 'Enable as Carrier',
+							'yes_as_popup'   => 'Enable as Popup Checkout',
+							'no'             => 'Disable',
+						),
 						'default'     => is_sdevs_pathao_pro_activated() ? 'yes' : 'no',
 						'disabled'    => ! is_sdevs_pathao_pro_activated(),
 					),
