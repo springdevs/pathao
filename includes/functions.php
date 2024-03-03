@@ -77,9 +77,9 @@ function sdevs_get_pathao_data( string $endpoint ) {
  * Send request on pathao server.
  *
  * @param string $endpoint Endpoint.
- * @param array  $body Body.
+ * @param array $body Body.
  *
- * @return [object]
+ * @return mixed|object [object]
  */
 function sdevs_send_pathao_data( string $endpoint, array $body ) {
 	$base_url     = sdevs_pathao_base_url();
@@ -157,7 +157,7 @@ function sdevs_pathao_store_id() {
  *
  * @return mixed
  */
-function sdevs_pathao_settings( $key ) {
+function sdevs_pathao_settings( string $key ) {
 	$settings = get_option( 'woocommerce_pathao_settings' );
 
 	return $settings && is_array( $settings ) ? $settings[ $key ] : false;

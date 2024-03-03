@@ -26,7 +26,10 @@ function sdevs_pathao_shipping_method_init() {
 				$this->availability = 'including';
 				$this->countries    = array( 'BD' );
 
-				$this->enabled = is_sdevs_pathao_pro_activated() ? $this->get_option( 'enabled' ) : 'no';
+				$this->enabled = is_sdevs_pathao_pro_activated() && in_array( $this->get_option( 'enabled' ), [
+					'yes',
+					'yes_popup'
+				] ) ? 'yes' : 'no';
 				$this->title   = $this->get_option( 'title' );
 				$this->init();
 			}
@@ -81,17 +84,9 @@ function sdevs_pathao_shipping_method_init() {
 					$this->update_option( 'delivered_status', 'wc-completed' );
 					$this->update_option( 'return_status', 'wc-processing' );
 					$this->update_option( 'on_hold_status', 'wc-on-hold' );
-					$this->update_option( 'multi_checkout_support', 'no' );
 				}
 
 				$this->form_fields = array(
-					// 'enabled'                   => array(
-					// 'title'       => __( 'Enable', 'sdevs_pathao' ),
-					// 'type'        => 'checkbox',
-					// 'description' => __( 'Enable this shipping.', 'sdevs_pathao' ),
-					// 'default'     => is_sdevs_pathao_pro_activated() ? 'yes' : 'no',
-					// 'disabled'    => ! is_sdevs_pathao_pro_activated(),
-					// ),
 					'enabled'                   => array(
 						'title'       => __( 'Enable', 'sdevs_pathao' ),
 						'type'        => 'select',
@@ -194,14 +189,7 @@ function sdevs_pathao_shipping_method_init() {
 						'description' => __( 'When Pathao order status is On_Hold, WooCommerce Order status will be set this status !', 'sdevs_pathao' ),
 						'default'     => 'wc-on-hold',
 						'disabled'    => ! is_sdevs_pathao_pro_activated(),
-					),
-					'multi_checkout_support'    => array(
-						'title'       => __( 'Popup Checkout', 'sdevs_pathao' ),
-						'type'        => 'checkbox',
-						'description' => __( 'Use popup checkout only.', 'sdevs_pathao' ),
-						'default'     => 'no',
-						'disabled'    => ! is_sdevs_pathao_pro_activated(),
-					),
+					)
 				);
 			}
 
