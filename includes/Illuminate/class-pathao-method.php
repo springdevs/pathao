@@ -28,7 +28,7 @@ function sdevs_pathao_shipping_method_init() {
 
 				$this->enabled = is_sdevs_pathao_pro_activated() && in_array( $this->get_option( 'enabled' ), [
 					'yes',
-					'yes_popup'
+					'yes_as_popup'
 				] ) ? 'yes' : 'no';
 				$this->title   = $this->get_option( 'title' );
 				$this->init();
