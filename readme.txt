@@ -1,19 +1,19 @@
-=== Pathao Integration for WooCommerce ===  
-Contributors: springdevs, naminbd, ok9xnirab  
-Donate link: http://springdevs.com/  
+=== Pathao Integration for WooCommerce ===
+Contributors: springdevs, naminbd, ok9xnirab
+Donate link: http://springdevs.com/
 Tags: pathao, pathao-shipping, woocommerce-shipping, pathao integration, pathao courier, bd courier, bd shipping
-Requires at least: 4.0  
-Tested up to: 6.4  
-Stable tag: 1.0.6
-Requires PHP: 7.0  
-License: GPLv2 or later  
+Requires at least: 4.0
+Tested up to: 6.5
+Stable tag: 1.0.7
+Requires PHP: 7.0
+License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Pathao courier integration for WooCommerce
 
 == Description ==
 
-Pathao integration for WooCommerce. 
+Pathao integration for WooCommerce.
 Here we made a solution that will take all the information from the user and send that directly to Pathao. The information will directly interact with Pathao and calculate the delivery charge for each order. So you donâ€™t need to worry about the delivery charge or call the customer if any change in the delivery charge. ðŸ‘ŠðŸ‘Š
 
 [youtube https://youtu.be/nrdH7hWVTbc]
@@ -28,7 +28,7 @@ Here we made a solution that will take all the information from the user and sen
 
 ### Premium
 
-Explore our [Premium Version here](https://springdevs.com/plugin/pathao). 
+Explore our [Premium Version here](https://springdevs.com/plugin/pathao).
 
 1.  Register Pathao as a shipping method
 2.  Automatically calculate shipping charge based on location
@@ -37,7 +37,7 @@ Explore our [Premium Version here](https://springdevs.com/plugin/pathao).
 5.  Multi checkout support
 6.  More Customizable.
 
-## Why should you choose us? 
+## Why should you choose us?
 1. Easy and simple installation process
 2. Fully automatic delivery charge calculation
 3. No need to worry about the delivery location
@@ -71,6 +71,11 @@ Explore our [Premium Version here](https://springdevs.com/plugin/pathao).
 4.  Pathao order status
 
 == Changelog ==
+
+ = 1.0.7 =
+
+*   Settings page updated.
+*   Ready for v1.2 pro version.
 
  = 1.0.6 =
 

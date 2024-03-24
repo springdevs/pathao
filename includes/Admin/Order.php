@@ -117,10 +117,11 @@ class Order {
 		foreach ( $order->get_items() as $order_item ) {
 			$product = $order_item->get_product();
 			if ( ! $product->is_virtual() ) {
-				$total_weight += empty( $product->get_weight() ) ? floatval( sdevs_pathao_settings( 'default_weight' ) ) : floatval( intval( $product->get_weight() ) * $order_item['quantity'] );
+				$total_weight += empty( $product->get_weight() ) ? 0 : intval( $product->get_weight() ) * $order_item['quantity'];
 			}
 		}
-		$status = $order->get_meta( '_pathao_order_status' );
+		$total_weight = floatval( max( $total_weight, 0.5 ) );
+		$status       = $order->get_meta( '_pathao_order_status' );
 
 		include 'views/pathao-shipping.php';
 	}

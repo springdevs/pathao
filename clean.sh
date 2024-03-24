@@ -9,6 +9,7 @@ rm -rf .git/
 rm -r .editorconfig
 rm -r .gitignore
 
+rm -r phpcs.xml
 rm -r .prettierrc
 rm -r .eslintignore
 rm -r .eslintrc.json

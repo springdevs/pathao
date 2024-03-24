@@ -4,6 +4,11 @@ Pathao integration for WooCommerce
 
 ## Changelog
 
+### 1.0.7
+
+-   Settings page updated.
+-   Ready for v1.2 pro version.
+
 ### 1.0.6
 
 -   Item description field added.

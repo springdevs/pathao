@@ -26,10 +26,14 @@ function sdevs_pathao_shipping_method_init() {
 				$this->availability = 'including';
 				$this->countries    = array( 'BD' );
 
-				$this->enabled = is_sdevs_pathao_pro_activated() && in_array( $this->get_option( 'enabled' ), [
-					'yes',
-					'yes_as_popup'
-				] ) ? 'yes' : 'no';
+				$this->enabled = is_sdevs_pathao_pro_activated() && in_array(
+					$this->get_option( 'enabled' ),
+					array(
+						'yes',
+						'yes_as_popup',
+					),
+					true
+				) ? 'yes' : 'no';
 				$this->title   = $this->get_option( 'title' );
 				$this->init();
 			}
@@ -84,6 +88,8 @@ function sdevs_pathao_shipping_method_init() {
 					$this->update_option( 'delivered_status', 'wc-completed' );
 					$this->update_option( 'return_status', 'wc-processing' );
 					$this->update_option( 'on_hold_status', 'wc-on-hold' );
+				} elseif ( count( $dropdown_stores ) > 0 && ! array_key_exists( $this->get_option( 'store' ), $dropdown_stores ) ) {
+					$this->update_option( 'store', array_key_first( $dropdown_stores ) );
 				}
 
 				$this->form_fields = array(
@@ -142,11 +148,11 @@ function sdevs_pathao_shipping_method_init() {
 						'type'              => 'number',
 						'custom_attributes' => array(
 							'steps'    => 'any',
-							'min'      => '0.5',
-							'max'      => '10.0',
+							'min'      => '0.1',
+							'max'      => '200.0',
 							'required' => 'required',
 						),
-						'description'       => __( 'This value will be replaced when you set weight on individual product ! Minimum 0.5 KG to Maximum 10 KG', 'sdevs_pathao' ),
+						'description'       => __( 'This value will be replaced when total weight of order is 0 ! Minimum 0.1 KG to Maximum 200 KG', 'sdevs_pathao' ),
 						'default'           => 0.5,
 						'disabled'          => ! is_sdevs_pathao_pro_activated(),
 					),
@@ -189,7 +195,7 @@ function sdevs_pathao_shipping_method_init() {
 						'description' => __( 'When Pathao order status is On_Hold, WooCommerce Order status will be set this status !', 'sdevs_pathao' ),
 						'default'     => 'wc-on-hold',
 						'disabled'    => ! is_sdevs_pathao_pro_activated(),
-					)
+					),
 				);
 			}
 

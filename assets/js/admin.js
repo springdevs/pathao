@@ -36,6 +36,7 @@ jQuery(document).ready(function ($) {
 					});
 					$('#pathao_access_token').val(res.data.access_token);
 					$('#pathao_refresh_token').val(res.data.refresh_token);
+					window.location.reload();
 				} else {
 					$('.pathao-notice').after(
 						'<div class="notice notice-error is-dismissible"><p><b>' +
@@ -59,7 +60,6 @@ jQuery(document).ready(function ($) {
 
 		$('#submit').prop('disabled', false);
 		$('.pathao-setup-spinner').removeClass('is-active');
-		window.location.reload();
 	});
 
 	if ($('#pathao_city').val() && $('#pathao_city').val() !== '') {
